@@ -52,7 +52,9 @@ function navigateTo(page, service = null) {
 
 function showMobileMenu() {
   document.getElementById("mobileMenu").classList.remove("hidden");
-  document.querySelector(".menu-content").classList.add("show");
+  setTimeout(() => {
+    document.querySelector(".menu-content").classList.add("show");
+  }, 10);
 }
 
 function closeMobileMenu() {
@@ -68,28 +70,42 @@ function renderPage() {
   if (currentPage === "home") {
     html += `
       <div class="hero">
-        <h1>RizwiElite Production</h1>
-        <p>Professional Freelance Services That Deliver Real Results</p>
-        <button class="btn-primary" onclick="navigateTo('services')">Explore My Services</button>
+        <div class="content">
+          <h1>RizwiElite Production</h1>
+          <p>Professional Freelance Services That Deliver Real Results</p>
+          <button class="btn-primary" onclick="navigateTo('services')">Explore My Services</button>
+        </div>
       </div>
 
       <div class="container">
         <div class="services-grid">
           <div class="service-card" onclick="navigateTo('services', 'videoEditing')">
-            <h3>Video Editing</h3>
-            <p>Click to view subcategories</p>
+            <img src="https://placehold.co/400x200?text=Video+Editing " alt="Video Editing">
+            <div class="service-card-body">
+              <h3>Video Editing</h3>
+              <p>Click to view subcategories</p>
+            </div>
           </div>
           <div class="service-card" onclick="navigateTo('services', 'graphicDesign')">
-            <h3>Graphic Design</h3>
-            <p>Click to view subcategories</p>
+            <img src="https://placehold.co/400x200?text=Graphic+Design " alt="Graphic Design">
+            <div class="service-card-body">
+              <h3>Graphic Design</h3>
+              <p>Click to view subcategories</p>
+            </div>
           </div>
           <div class="service-card" onclick="navigateTo('services', 'contentWriting')">
-            <h3>Content Writing</h3>
-            <p>Click to view subcategories</p>
+            <img src="https://placehold.co/400x200?text=Content+Writing " alt="Content Writing">
+            <div class="service-card-body">
+              <h3>Content Writing</h3>
+              <p>Click to view subcategories</p>
+            </div>
           </div>
           <div class="service-card" onclick="navigateTo('services', 'youtubeMonetization')">
-            <h3>YouTube Monetization</h3>
-            <p>Click to view subcategories</p>
+            <img src="https://placehold.co/400x200?text=YouTube+Monetization " alt="YouTube Monetization">
+            <div class="service-card-body">
+              <h3>YouTube Monetization</h3>
+              <p>Click to view subcategories</p>
+            </div>
           </div>
         </div>
 
@@ -106,8 +122,8 @@ function renderPage() {
         </div>
 
         <div class="cta">
-          <h2>Book a Service Today!</h2>
-          <button class="btn-primary" onclick="navigateTo('contact')">Contact Me</button>
+          <h2>Contact Me For Professional Services</h2>
+          <button class="btn-contact" onclick="navigateTo('contact')">Contact Me</button>
         </div>
       </div>
     `;
@@ -122,7 +138,7 @@ function renderPage() {
     const items = services[serviceName];
 
     html += `
-      <button class="back-btn" onclick="navigateTo('home')">← Back to Home</button>
+      <button class="back-btn" onclick="navigateTo('services')">← Back to Services</button>
       <div class="container">
         <h1 class="service-detail">${serviceTitleMap[serviceName]}</h1>
         <div class="cards">
@@ -135,9 +151,8 @@ function renderPage() {
           <div class="card-body">
             <h3>${item.name}</h3>
             <p class="price">${item.price}</p>
-            <div class="buttons">
-              <button class="whatsapp">WhatsApp</button>
-              <button class="email">Email</button>
+            <div class="button-wrapper">
+              <button class="btn-activate">Activate Plan</button>
             </div>
           </div>
         </div>
@@ -178,7 +193,6 @@ function renderPage() {
   app.innerHTML = html;
 }
 
-// Add hamburger menu toggle
 document.addEventListener("DOMContentLoaded", () => {
   window.navigateTo = navigateTo;
   window.showMobileMenu = showMobileMenu;
