@@ -51,17 +51,27 @@ function navigateTo(page, service = null) {
 }
 
 function showMobileMenu() {
-  document.getElementById("mobileMenu").classList.remove("hidden");
-  setTimeout(() => {
-    document.querySelector(".menu-content").classList.add("show");
-  }, 10);
+  const menu = document.getElementById("mobileMenu");
+  const content = document.querySelector(".menu-content");
+  menu.classList.remove("hidden");
+  setTimeout(() => content.classList.add("show"), 10);
 }
 
 function closeMobileMenu() {
-  document.querySelector(".menu-content").classList.remove("show");
-  setTimeout(() => {
-    document.getElementById("mobileMenu").classList.add("hidden");
-  }, 300);
+  const menu = document.getElementById("mobileMenu");
+  const content = document.querySelector(".menu-content");
+  content.classList.remove("show");
+  setTimeout(() => menu.classList.add("hidden"), 300);
+}
+
+function activatePlan(serviceName) {
+  const message = encodeURIComponent(`Hi, I'm interested in the "${serviceName}".`);
+  window.open(`https://wa.me/+923325318695?text= ${message}`, "_blank");
+}
+
+function sendEmail(subject) {
+  const body = encodeURIComponent(`Hi Rizwi, I'm interested in: ${subject}`);
+  window.location.href = `mailto:rizwigul@gmail.com?subject=${subject}&body=${body}`;
 }
 
 function renderPage() {
@@ -110,9 +120,9 @@ function renderPage() {
         </div>
 
         <div class="about">
-          <img src="https://placehold.co/300x300 " alt="Profile">
+          <img src="https://placehold.co/300x300 " alt="Rizwi Gul Logo"> <!-- Replace this with your logo URL -->
           <h2>About Rizwi Gul</h2>
-          <p>I'm Rizwi Gul, a passionate freelancer with expertise in video editing, graphic design, content writing, and YouTube monetization.</p>
+          <p>I'm Rizwi Gul, a passionate freelancer delivering premium video editing, design, writing, and YouTube services.</p>
           <ul>
             <li>Fast Delivery</li>
             <li>Affordable Pricing</li>
@@ -152,7 +162,7 @@ function renderPage() {
             <h3>${item.name}</h3>
             <p class="price">${item.price}</p>
             <div class="button-wrapper">
-              <button class="btn-activate">Activate Plan</button>
+              <button class="btn-activate" onclick="activatePlan('${item.name}')">Activate Plan</button>
             </div>
           </div>
         </div>
@@ -167,41 +177,3 @@ function renderPage() {
     html += `
       <button class="back-btn" onclick="navigateTo('home')">← Back to Home</button>
       <div class="contact-form-container">
-        <h1>Contact Me</h1>
-        <div class="contact-info">
-          <p>📧 <a href="mailto:rizwigul@gmail.com">rizwigul@gmail.com</a></p>
-          <p>📱 <a href="https://wa.me/+923325318695 " target="_blank">+92 332 5318695</a></p>
-        </div>
-        <form class="contact-form">
-          <input type="text" placeholder="Your Name" required />
-          <input type="email" placeholder="Your Email" required />
-          <textarea rows="5" placeholder="Your Message" required></textarea>
-          <button type="submit">Send Message</button>
-        </form>
-      </div>
-      <div class="footer">
-        <p>© 2025 RizwiElite Production</p>
-        <div>
-          <a href="#" onclick="navigateTo('home')">Home</a> |
-          <a href="#" onclick="navigateTo('services')">Services</a> |
-          <a href="#" onclick="navigateTo('contact')">Contact</a>
-        </div>
-      </div>
-    `;
-  }
-
-  app.innerHTML = html;
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  window.navigateTo = navigateTo;
-  window.showMobileMenu = showMobileMenu;
-  window.closeMobileMenu = closeMobileMenu;
-  renderPage();
-
-  const hamburger = document.createElement("div");
-  hamburger.className = "hamburger";
-  hamburger.innerText = "☰";
-  hamburger.onclick = showMobileMenu;
-  document.body.appendChild(hamburger);
-});

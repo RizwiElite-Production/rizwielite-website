@@ -33,7 +33,6 @@ body {
   background-position: center;
   background-attachment: fixed;
   position: relative;
-  animation: fadeIn 2s ease-in-out;
 }
 .hero::after {
   content: '';
@@ -50,28 +49,11 @@ body {
   z-index: 2;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
 .hero h1 {
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1rem;
   text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-  animation: slideInDown 1s ease-out;
-}
-
-@keyframes slideInDown {
-  from {
-    transform: translateY(-30px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
 }
 
 .hero p {
@@ -81,18 +63,6 @@ body {
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  animation: fadeInUp 1s ease-in-out;
-}
-
-@keyframes fadeInUp {
-  from {
-    transform: translateY(30px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
 }
 
 .btn-primary {
@@ -160,27 +130,38 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 4rem 1rem;
+  padding: 2rem 1rem;
   background-color: #1a1a1a;
-  animation: fadeInUp 1s ease-out;
 }
 
 .about img {
-  width: 160px;
-  height: 160px;
+  width: 140px;
+  height: 140px;
   object-fit: cover;
   border-radius: 50%;
   margin-bottom: 1rem;
   box-shadow: 0 0 20px rgba(0,0,0,0.4);
 }
 
+.about h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.about p {
+  font-size: 0.95rem;
+  color: #aaa;
+  margin-bottom: 1rem;
+  max-width: 400px;
+}
+
 .about ul {
   list-style: disc;
   padding-left: 1.5rem;
   color: #999;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   text-align: left;
-  max-width: 400px;
+  max-width: 300px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -190,7 +171,6 @@ body {
   background-color: #1e1e1e;
   text-align: center;
   padding: 4rem 2rem;
-  animation: fadeIn 1s ease-out;
 }
 
 .cta h2 {
@@ -217,17 +197,6 @@ body {
 }
 
 /* Service Detail Page */
-.service-detail {
-  padding: 2rem;
-}
-
-.service-detail h1 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 2rem;
-  animation: fadeInUp 1s ease-in-out;
-}
-
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -281,8 +250,8 @@ body {
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 0 10px rgba(124, 58, 237, 0.4);
   width: 100%;
+  box-shadow: 0 0 10px rgba(124, 58, 237, 0.4);
 }
 
 .btn-activate:hover {
@@ -297,7 +266,6 @@ body {
   background-color: #1e1e1e;
   padding: 2rem;
   border-radius: 12px;
-  animation: fadeInUp 1s ease-in-out;
 }
 
 .contact-form-container h1 {
@@ -305,32 +273,37 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.contact-form input,
-.contact-form textarea {
-  width: 100%;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border: none;
-  border-radius: 8px;
-  background-color: #2d2d2d;
-  color: white;
-}
-
-.contact-form button {
-  width: 100%;
-  padding: 1rem;
-  background: linear-gradient(135deg, #7c3aed, #c026d3);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
 .contact-info {
   text-align: center;
   margin: 2rem 0;
+}
+
+.contact-button-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.contact-btn {
+  background: linear-gradient(135deg, #22c55e, #15803d);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.4);
+}
+
+.contact-btn.email {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+}
+
+.contact-btn:hover {
+  transform: scale(1.05);
 }
 
 .footer {
@@ -340,7 +313,6 @@ body {
   background-color: #121212;
 }
 
-/* Back Button */
 .back-btn {
   margin: 2rem auto;
   display: block;
@@ -354,7 +326,6 @@ body {
   color: #7c3aed;
 }
 
-/* Hamburger Menu */
 .hamburger {
   position: fixed;
   top: 20px;
