@@ -1,8 +1,10 @@
 const app = document.getElementById("app");
 let currentPage = "home";
+let selectedService = null;
 
-function navigateTo(page) {
+function navigateTo(page, service = null) {
   currentPage = page;
+  selectedService = service;
   renderPage();
 }
 
@@ -30,11 +32,36 @@ function sendEmail(subject) {
   window.location.href = `mailto:rizwigul@gmail.com?subject=${subject}&body=${body}`;
 }
 
+function getServiceData(name) {
+  const data = {
+    videoEditing: [
+      { name: "Documentary Editing", price: "$15/video", media: '<video controls><source src="https://www.w3schools.com/html/mov_bbb.mp4 " type="video/mp4">Your browser does not support the video tag.</video>' },
+      { name: "Wedding Highlights", price: "$25/video", media: '<img src="https://placehold.co/400x200?text=Wedding+Highlights " alt="Wedding Highlights">' },
+      { name: "Faceless Videos", price: "$10/video", media: '<img src="https://placehold.co/400x200?text=Faceless+Videos " alt="Faceless Videos">' },
+      { name: "YouTube Automation", price: "$20/video", media: '<img src="https://placehold.co/400x200?text=YouTube+Automation " alt="YouTube Automation">' }
+    ],
+    graphicDesign: [
+      { name: "Logo Design", price: "$20/design", media: '<img src="https://placehold.co/400x200?text=Logo+Design " alt="Logo Design">' },
+      { name: "Social Media Posts", price: "$10/post", media: '<img src="https://placehold.co/400x200?text=Social+Media+Posts " alt="Social Media Posts">' }
+    ],
+    contentWriting: [
+      { name: "SEO Articles", price: "$10/article", media: '<img src="https://placehold.co/400x200?text=SEO+Articles " alt="SEO Articles">' },
+      { name: "Blog Writing", price: "$12/article", media: '<img src="https://placehold.co/400x200?text=Blog+Writing " alt="Blog Writing">' }
+    ],
+    youtubeMonetization: [
+      { name: "Channel Setup", price: "$25/channel", media: '<img src="https://placehold.co/400x200?text=Channel+Setup " alt="Channel Setup">' },
+      { name: "Thumbnail Design", price: "$10/design", media: '<img src="https://placehold.co/400x200?text=Thumbnail+Design " alt="Thumbnail Design">' }
+    ]
+  };
+  return data[name] || [];
+}
+
 function renderPage() {
   let html = "";
 
   if (currentPage === "home") {
     html += `
+      <div class="hamburger" onclick="showMobileMenu()">☰</div>
       <div class="hero">
         <div class="content">
           <h1>RizwiElite Production</h1>
@@ -76,7 +103,7 @@ function renderPage() {
         </div>
 
         <div class="about">
-          <img src="https://placehold.co/300x300 " alt="Rizwi Gul Logo"> <!-- Replace with your logo URL -->
+          <img src="https://placehold.co/300x300 " alt="Rizwi Gul Logo">
           <h2>About Rizwi Gul</h2>
           <p>I'm Rizwi Gul, a passionate freelancer delivering premium video editing, design, writing, and YouTube services.</p>
           <ul>
@@ -95,64 +122,19 @@ function renderPage() {
     `;
   } else if (currentPage === "services") {
     const serviceName = selectedService;
-    const serviceTitleMap = {
-      videoEditing: "Video Editing",
-      graphicDesign: "Graphic Design",
-      contentWriting: "Content Writing",
-      youtubeMonetization: "YouTube Monetization"
-    };
-    const items = {
-      videoEditing: [
-        { name: "Documentary Editing", price: "$15/video" },
-        { name: "Wedding Highlights", price: "$25/video" },
-        { name: "Faceless Videos", price: "$10/video" },
-        { name: "Advertisement Edits", price: "$30/video" },
-        { name: "YouTube Automation", price: "$20/video" },
-        { name: "AI Video Editing", price: "$18/video" },
-        { name: "Explainer Videos", price: "$35/video" },
-        { name: "Reels/Shorts", price: "$12/video" },
-        { name: "Event Highlight Edits", price: "$40/video" }
-      ],
-      graphicDesign: [
-        { name: "Logo Design", price: "$20/design" },
-        { name: "Social Media Posts", price: "$10/post" },
-        { name: "Banners & Thumbnails", price: "$15/design" },
-        { name: "Brochure Design", price: "$25/design" },
-        { name: "Custom Illustration", price: "$30/hour" },
-        { name: "Flyer Design", price: "$18/design" },
-        { name: "Brand Identity Kit", price: "$75/kits" }
-      ],
-      contentWriting: [
-        { name: "SEO Articles (500 words)", price: "$10/article" },
-        { name: "Blog Writing", price: "$12/article" },
-        { name: "Product Descriptions", price: "$8/item" },
-        { name: "Copywriting (ads/sales copy)", price: "$20/page" },
-        { name: "Scripts for Videos", price: "$15/script" },
-        { name: "LinkedIn Bios", price: "$10/bio" },
-        { name: "Research Articles", price: "$18/article" }
-      ],
-      youtubeMonetization: [
-        { name: "Channel Setup", price: "$25/channel" },
-        { name: "Growth Strategy", price: "$30/strategy" },
-        { name: "SEO Optimization", price: "$20/video" },
-        { name: "Monetization Guide", price: "$15/guide" },
-        { name: "Thumbnail Design", price: "$10/design" },
-        { name: "Upload Schedule Planning", price: "$20/month" },
-        { name: "Analytics Report", price: "$18/report" }
-      ]
-    };
+    const items = getServiceData(serviceName);
 
     html += `
-      <button class="back-btn" onclick="navigateTo('services')">← Back to Services</button>
+      <button class="back-btn" onclick="navigateTo('home')">← Back to Home</button>
       <div class="container">
-        <h1 class="service-detail">${serviceTitleMap[serviceName]}</h1>
+        <h1 class="service-detail">${serviceName}</h1>
         <div class="cards">
     `;
 
-    items[serviceName].forEach(item => {
+    items.forEach(item => {
       html += `
         <div class="card">
-          <img src="https://placehold.co/400x200?text= ${encodeURIComponent(item.name)}" alt="${item.name}">
+          <div class="media">${item.media}</div>
           <div class="card-body">
             <h3>${item.name}</h3>
             <p class="price">${item.price}</p>
@@ -199,12 +181,11 @@ document.addEventListener("DOMContentLoaded", () => {
   window.closeMobileMenu = closeMobileMenu;
   window.activatePlan = activatePlan;
   window.sendEmail = sendEmail;
+  renderPage();
 
   const hamburger = document.createElement("div");
   hamburger.className = "hamburger";
   hamburger.innerText = "☰";
   hamburger.onclick = showMobileMenu;
   document.body.appendChild(hamburger);
-
-  renderPage();
 });
