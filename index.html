@@ -4,48 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>RizwiElite Production</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <!-- Header -->
-  <header>
-    <div class="logo">
-      <img src="assets/images/logo.png" alt="Logo" width="50">
-      <h2>RizwiElite Production</h2>
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="hidden">
+    <div class="menu-content">
+      <button onclick="navigateTo('home')">Home</button>
+      <button onclick="navigateTo('services')">Services</button>
+      <button onclick="navigateTo('contact')">Contact</button>
     </div>
-    <nav class="desktop-nav">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="video-editing.html">Video Editing</a></li>
-        <li><a href="graphic-design.html">Graphic Design</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-    <button class="hamburger">&#9776;</button>
-    <nav class="mobile-nav">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="video-editing.html">Video Editing</a></li>
-        <li><a href="graphic-design.html">Graphic Design</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+  </div>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <h1>Professional Freelance Services</h1>
-    <p>We offer top-quality video editing, graphic design, content writing, and YouTube monetization services.</p>
-    <a href="about.html"><button>Learn More</button></a>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 RizwiElite Production. All rights reserved.</p>
-  </footer>
+  <!-- App Container -->
+  <div id="app"></div>
 
   <script src="script.js"></script>
 </body>
