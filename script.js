@@ -3,6 +3,11 @@ let currentPage = "home";
 let selectedService = null;
 let selectedTier = null;
 
+// Capitalize First Letter Helper
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 function navigateTo(page, service = null, tier = null) {
   currentPage = page;
   selectedService = service;
@@ -108,24 +113,24 @@ function getPortfolioData(category) {
       { title: "YouTube Shorts Compilation", video: "https://www.w3schools.com/html/mov_bbb.mp4 ", description: "Edited shorts compilation with trending music." }
     ],
     graphicDesign: [
-      { title: "E-commerce Logo", image: "https://placehold.co/400x200?text=Ecommerce+Logo ", description: "Logo for online fashion brand." },
-      { title: "YouTube Banner", image: "https://placehold.co/400x200?text=YouTube+Banner ", description: "YouTube branding design." },
-      { title: "Instagram Feed", image: "https://placehold.co/400x200?text=Instagram+Feed ", description: "Monthly feed templates." }
+      { title: "E-commerce Logo", preview: "https://placehold.co/400x200?text=Ecommerce+Logo ", description: "Logo for online fashion brand." },
+      { title: "YouTube Banner", preview: "https://placehold.co/400x200?text=YouTube+Banner ", description: "YouTube branding design." },
+      { title: "Instagram Feed", preview: "https://placehold.co/400x200?text=Instagram+Feed ", description: "Monthly feed templates." }
     ],
     contentWriting: [
-      { title: "SEO Blog Post", text: "How to grow a blog organically.", preview: "https://placehold.co/400x200?text=SEO+Blog+Post " },
-      { title: "LinkedIn Bio", text: "Creative profile bio writing.", preview: "https://placehold.co/400x200?text=LinkedIn+Bio " },
-      { title: "Product Descriptions", text: "E-commerce product copywriting.", preview: "https://placehold.co/400x200?text=Product+Descriptions " }
+      { title: "SEO Blog Post", preview: "https://placehold.co/400x200?text=SEO+Blog+Post ", description: "How to grow a blog organically." },
+      { title: "LinkedIn Bio", preview: "https://placehold.co/400x200?text=LinkedIn+Bio ", description: "Creative profile bio writing." },
+      { title: "Product Descriptions", preview: "https://placehold.co/400x200?text=Product+Descriptions ", description: "E-commerce product copywriting." }
     ],
     youtubeMonetization: [
-      { title: "Channel Audit", text: "Complete channel audit and optimization.", preview: "https://placehold.co/400x200?text=Channel+Audit " },
-      { title: "Monetization Tips", text: "Helped creator monetize after 4K views.", preview: "https://placehold.co/400x200?text=Monetization+Tips " },
-      { title: "Content Strategy", text: "Monthly upload strategy + titles + tags.", preview: "https://placehold.co/400x200?text=Content+Strategy " }
+      { title: "Channel Audit", preview: "https://placehold.co/400x200?text=Channel+Audit ", description: "Complete channel audit and optimization." },
+      { title: "Monetization Tips", preview: "https://placehold.co/400x200?text=Monetization+Tips ", description: "Helped creator monetize after 4K views." },
+      { title: "Content Strategy", preview: "https://placehold.co/400x200?text=Content+Strategy ", description: "Monthly upload strategy + titles + tags." }
     ]
   }[category] || [];
 }
 
-// Client Stats
+// Client Stats / Fun Numbers
 function getClientStats() {
   return `
     <section class="client-stats mt-12 grid md:grid-cols-3 gap-6 text-center">
@@ -145,62 +150,12 @@ function getClientStats() {
   `;
 }
 
-// Service Bundles
-function getServiceBundles() {
-  return `
-    <section class="bundles mt-12">
-      <h2 class="text-2xl font-bold mb-4">Service Bundles</h2>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="bundle-card bg-gray-800 p-4 rounded shadow">
-          <h3 class="font-semibold">Video + Thumbnail</h3>
-          <p>$45/video</p>
-          <button onclick="activatePlan('Video Editing + Thumbnail')" class="mt-2 w-full bg-green-600 hover:bg-green-700 px-4 py-2 rounded">WhatsApp</button>
-        </div>
-        <div class="bundle-card bg-gray-800 p-4 rounded shadow">
-          <h3 class="font-semibold">Design + Writing</h3>
-          <p>$30/project</p>
-          <button onclick="activatePlan('Graphic Design + Content Writing')" class="mt-2 w-full bg-green-600 hover:bg-green-700 px-4 py-2 rounded">WhatsApp</button>
-        </div>
-        <div class="bundle-card bg-gray-800 p-4 rounded shadow">
-          <h3 class="font-semibold">YouTube Setup + Growth</h3>
-          <p>$80/setup</p>
-          <button onclick="activatePlan('YouTube Monetization + Growth')" class="mt-2 w-full bg-green-600 hover:bg-green-700 px-4 py-2 rounded">WhatsApp</button>
-        </div>
-      </div>
-    </section>
-  `;
-}
-
-// Testimonial Slider
-function getTestimonials() {
-  return `
-    <section class="testimonials mt-12">
-      <h2 class="text-2xl font-bold mb-4">What Clients Say</h2>
-      <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide testimonial-card bg-gray-800 p-4 rounded shadow text-center">
-            <img src="https://placehold.co/60x60 " alt="Client 1" class="mx-auto mb-2" />
-            <p>"Rizwi is fast, creative, and always delivers beyond expectations!"</p>
-            <p class="mt-2 text-yellow-400">⭐⭐⭐⭐⭐ — Sarah, Creator</p>
-          </div>
-          <div class="swiper-slide testimonial-card bg-gray-800 p-4 rounded shadow text-center">
-            <img src="https://placehold.co/60x60 " alt="Client 2" class="mx-auto mb-2" />
-            <p>"Professional editing and branding! Will work again soon."</p>
-            <p class="mt-2 text-yellow-400">⭐⭐⭐⭐⭐ — John, Business Owner</p>
-          </div>
-        </div>
-        <div class="swiper-pagination mt-4"></div>
-      </div>
-    </section>
-  `;
-}
-
 // About Me Section
 function getAboutMe() {
   return `
     <header class="bg-gray-800 p-6 text-center relative">
       <img src="https://placehold.co/200x100?text=RizwiElite+Production " alt="Logo Banner" class="logo-banner" />
-      <h1 class="text-3xl font-bold">RizwiElite Production</h1>
+      <h1 class="site-title mb-2">RizwiElite Production</h1>
       <button onclick="navigateTo('home')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Home</button>
     </header>
 
@@ -228,8 +183,6 @@ function getAboutMe() {
     </main>
     
     ${getClientStats()}
-    ${getServiceBundles()}
-    ${getTestimonials()}
   `;
 }
 
@@ -237,7 +190,6 @@ function getAboutMe() {
 function getContactForm() {
   return `
     <header class="bg-gray-800 p-6 text-center relative">
-      <img src="https://placehold.co/200x100?text=RizwiElite+Production " alt="Logo Banner" class="logo-banner" />
       <h1 class="text-3xl font-bold">Contact Me</h1>
       <button onclick="navigateTo('home')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Home</button>
     </header>
@@ -322,35 +274,34 @@ function renderPage() {
   if (currentPage === "home") {
     html = `
       <header class="bg-gray-900 text-white p-6 text-center relative">
-        <img src="https://placehold.co/200x100?text=RizwiElite+Production " alt="Logo Banner" class="logo-banner" />
-        <h1 class="text-3xl font-bold">RizwiElite Production</h1>
-        <nav class="mt-4 flex justify-center gap-4">
-          <button onclick="navigateTo('portfolio')" class="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded">Portfolio</button>
-          <button onclick="navigateTo('about')" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded">About</button>
-          <button onclick="navigateTo('contact')" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded">Contact</button>
-        </nav>
+        <div id="menuToggle" onclick="toggleMenu()">
+          <span class="text-white">☰ Menu</span>
+          <div id="menuContent" class="menu-content"></div>
+        </div>
+
+        <h1 class="site-title mb-2">RizwiElite Production</h1>
       </header>
 
       <main class="p-6 grid md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
         <div class="service-card bg-gray-800 p-6 rounded shadow cursor-pointer" onclick="navigateTo('tiers', 'videoEditing')">
           <h2 class="font-bold">Video Editing</h2>
           <p>$15/video</p>
-          <img src="https://placehold.co/300x150?text=Video+Editing " alt="Video Editing" class="my-4" />
+          <img src="https://placehold.co/300x150?text=Video+Editing " alt="Video Editing" class="my-4 mx-auto" />
         </div>
         <div class="service-card bg-gray-800 p-6 rounded shadow cursor-pointer" onclick="navigateTo('services', 'graphicDesign')">
           <h2 class="font-bold">Graphic Design</h2>
           <p>$20/design</p>
-          <img src="https://placehold.co/300x150?text=Graphic+Design " alt="Graphic Design" class="my-4" />
+          <img src="https://placehold.co/300x150?text=Graphic+Design " alt="Graphic Design" class="my-4 mx-auto" />
         </div>
         <div class="service-card bg-gray-800 p-6 rounded shadow cursor-pointer" onclick="navigateTo('services', 'contentWriting')">
           <h2 class="font-bold">Content Writing</h2>
           <p>$10/article</p>
-          <img src="https://placehold.co/300x150?text=Content+Writing " alt="Content Writing" class="my-4" />
+          <img src="https://placehold.co/300x150?text=Content+Writing " alt="Content Writing" class="my-4 mx-auto" />
         </div>
         <div class="service-card bg-gray-800 p-6 rounded shadow cursor-pointer" onclick="navigateTo('services', 'youtubeMonetization')">
           <h2 class="font-bold">YouTube Monetization</h2>
           <p>$25/channel</p>
-          <img src="https://placehold.co/300x150?text=YouTube+Monetization " alt="YouTube Monetization" class="my-4" />
+          <img src="https://placehold.co/300x150?text=YouTube+Monetization " alt="YouTube Monetization" class="my-4 mx-auto" />
         </div>
       </main>
       
@@ -418,21 +369,21 @@ function renderPage() {
       </header>
 
       <main class="p-6 grid md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
-        <div class="portfolio-category bg-gray-800 p-4 rounded shadow text-center cursor-pointer" onclick="navigateTo('portfolio-detail', 'videoEditing')">
+        <div class="portfolio-category bg-gray-800 p-4 rounded shadow cursor-pointer text-center" onclick="navigateTo('portfolio-detail', 'videoEditing')">
           <h2 class="font-bold">Video Editing</h2>
-          <img src="https://placehold.co/400x200?text=Video+Editing " alt="Video Editing" class="my-4" />
+          <img src="https://placehold.co/400x200?text=Video+Editing " alt="Video Editing" class="my-4 mx-auto" />
         </div>
-        <div class="portfolio-category bg-gray-800 p-4 rounded shadow text-center cursor-pointer" onclick="navigateTo('portfolio-detail', 'graphicDesign')">
+        <div class="portfolio-category bg-gray-800 p-4 rounded shadow cursor-pointer text-center" onclick="navigateTo('portfolio-detail', 'graphicDesign')">
           <h2 class="font-bold">Graphic Design</h2>
-          <img src="https://placehold.co/400x200?text=Graphic+Design " alt="Graphic Design" class="my-4" />
+          <img src="https://placehold.co/400x200?text=Graphic+Design " alt="Graphic Design" class="my-4 mx-auto" />
         </div>
-        <div class="portfolio-category bg-gray-800 p-4 rounded shadow text-center cursor-pointer" onclick="navigateTo('portfolio-detail', 'contentWriting')">
+        <div class="portfolio-category bg-gray-800 p-4 rounded shadow cursor-pointer text-center" onclick="navigateTo('portfolio-detail', 'contentWriting')">
           <h2 class="font-bold">Content Writing</h2>
-          <img src="https://placehold.co/400x200?text=Content+Writing " alt="Content Writing" class="my-4" />
+          <img src="https://placehold.co/400x200?text=Content+Writing " alt="Content Writing" class="my-4 mx-auto" />
         </div>
-        <div class="portfolio-category bg-gray-800 p-4 rounded shadow text-center cursor-pointer" onclick="navigateTo('portfolio-detail', 'youtubeMonetization')">
+        <div class="portfolio-category bg-gray-800 p-4 rounded shadow cursor-pointer text-center" onclick="navigateTo('portfolio-detail', 'youtubeMonetization')">
           <h2 class="font-bold">YouTube Monetization</h2>
-          <img src="https://placehold.co/400x200?text=YouTube+Monetization " alt="YouTube Monetization" class="my-4" />
+          <img src="https://placehold.co/400x200?text=YouTube+Monetization " alt="YouTube Monetization" class="my-4 mx-auto" />
         </div>
       </main>
       
@@ -445,7 +396,7 @@ function renderPage() {
 
     html = `
       <header class="bg-gray-900 text-white p-6 text-center">
-        <h1 class="text-3xl font-bold">${selectedService} Portfolio</h1>
+        <h1 class="text-3xl font-bold">${capitalizeFirstLetter(selectedService.replace("videoEditing", "Video Editing").replace("graphicDesign", "Graphic Design").replace("contentWriting", "Content Writing").replace("youtubeMonetization", "YouTube Monetization"))} Portfolio</h1>
         <button onclick="navigateTo('portfolio')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Portfolio</button>
       </header>
 
@@ -454,7 +405,7 @@ function renderPage() {
           <div class="portfolio-card bg-gray-800 p-4 rounded shadow text-center">
             <h3 class="font-semibold mb-2">${item.title}</h3>
             <div class="mb-2">
-              ${item.video ? `<video src="${item.video}" class="w-full rounded" onclick="this.play()" controls></video>` : `<img src="${item.preview}" alt="${item.title}" class="rounded w-full" />`}
+              ${item.video ? `<video src="${item.video}" class="w-full rounded" controls></video>` : `<img src="${item.preview}" alt="${item.title}" class="rounded w-full" />`}
             </div>
             <p class="text-sm text-gray-400">${item.description}</p>
           </div>
@@ -475,13 +426,14 @@ function renderPage() {
 
   app.innerHTML = html;
 
-  // Init Swiper for testimonials
-  if (document.querySelector('.mySwiper')) {
-    new Swiper('.mySwiper', {
-      loop: true,
-      pagination: { el: '.swiper-pagination' },
-      autoplay: { delay: 3000 }
-    });
+  // Show menu links dynamically
+  const menuContent = document.getElementById("menuContent");
+  if (menuContent) {
+    menuContent.innerHTML = `
+      <a onclick="navigateTo('portfolio'); event.stopPropagation()" href="#">Portfolio</a>
+      <a onclick="navigateTo('about'); event.stopPropagation()" href="#">About</a>
+      <a onclick="navigateTo('contact'); event.stopPropagation()" href="#">Contact</a>
+    `;
   }
 }
 
@@ -494,9 +446,10 @@ function showConfirmation() {
   }
 }
 
-// Theme Toggle
-function toggleTheme() {
-  document.body.classList.toggle("dark");
+// Toggle Menu Logic
+function toggleMenu() {
+  const menu = document.getElementById("menuContent");
+  menu.classList.toggle("show");
 }
 
 // Start App

@@ -1,6 +1,6 @@
 /* style.css */
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .hidden {
@@ -41,6 +41,7 @@ header {
   background: linear-gradient(to right, #1a1a1a, #2d2d2d);
   padding: 1.5rem;
   position: relative;
+  text-align: center;
 }
 
 .logo-banner {
@@ -58,14 +59,53 @@ footer {
   background-color: #1a1a1a;
 }
 
-/* Theme Toggle */
-.dark {
-  --tw-bg-opacity: 1;
-  --tw-text-opacity: 1;
-  background-color: rgba(17, 24, 39, var(--tw-bg-opacity));
-  color: rgba(229, 231, 235, var(--tw-text-opacity));
+/* Modern Header Title */
+.site-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, #ffffff, #dddddd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.theme-toggle-btn {
-  @apply px-4 py-2 bg-gray-700 text-white rounded-full cursor-pointer;
+/* Main Menu Button */
+#menuToggle {
+  position: absolute;
+  top: 1rem;
+  left: 2rem;
+  z-index: 20;
+  cursor: pointer;
+  user-select: none;
+}
+
+.menu-content {
+  position: absolute;
+  top: 3rem;
+  left: 2rem;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(8px);
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+  display: none;
+  z-index: 30;
+}
+
+.menu-content.show {
+  display: block;
+}
+
+.menu-content a {
+  display: block;
+  color: white;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  transition: background 0.2s ease;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.menu-content a:hover {
+  background: rgba(255, 255, 250, 0.1);
 }
