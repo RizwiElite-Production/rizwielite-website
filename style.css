@@ -1,24 +1,25 @@
 /* style.css */
 body {
-  font-family: sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .hidden {
   display: none;
 }
 
-.testimonial-card img,
 .tool-icon {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.tier-card {
-  transition: transform 0.2s ease;
+  width: 32px;
+  height: 32px;
 }
 
 .tier-card:hover {
   transform: translateY(-4px);
+  transition: transform 0.2s ease;
+}
+
+video {
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  border-radius: 8px;
 }
