@@ -38,16 +38,16 @@ function playVideo(element, videoUrl) {
 function getServiceData(name) {
   return {
     videoEditing: [
-      { name: "Documentary Editing", media: '<img src="https://placehold.co/400x200?text=Documentary+Editing " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/documentary.mp4\')" class="cursor-pointer" />,
-      { name: "Wedding Highlights", media: '<img src="https://placehold.co/400x200?text=Wedding+Highlights " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/wedding.mp4\')" class="cursor-pointer" />,
-      { name: "Faceless Videos", media: '<img src="https://placehold.co/400x200?text=Faceless+Videos " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/faceless.mp4\')" class="cursor-pointer" />,
-      { name: "Ad Edits", media: '<img src="https://placehold.co/400x200?text=Ad+Edits " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/ad.mp4\')" class="cursor-pointer" />,
-      { name: "YouTube Automation", media: '<img src="https://placehold.co/400x200?text=YouTube+Automation " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/youtube.mp4\')" class="cursor-pointer" />,
-      { name: "AI Video Editing", media: '<img src="https://placehold.co/400x200?text=AI+Video+Editing " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/ai.mp4\')" class="cursor-pointer" />,
-      { name: "Explainer Videos", media: '<img src="https://placehold.co/400x200?text=Explainer+Videos " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/explainer.mp4\')" class="cursor-pointer" />,
-      { name: "Reels/Shorts", media: '<img src="https://placehold.co/400x200?text=Reels+%2F+Shorts " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/reels.mp4\')" class="cursor-pointer" />,
-      { name: "Event Highlight", media: '<img src="https://placehold.co/400x200?text=Event+Highlight " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/event.mp4\')" class="cursor-pointer" />,
-      { name: "Corporate Video", media: '<img src="https://placehold.co/400x200?text=Corporate+Video " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/corporate.mp4\')" class="cursor-pointer" />
+      { name: "Documentary Editing", media: '<img src="https://placehold.co/400x200?text=Documentary+Editing " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/documentary.mp4\')" class="cursor-pointer">', price: "$15/video" },
+      { name: "Wedding Highlights", media: '<img src="https://placehold.co/400x200?text=Wedding+Highlights " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/wedding.mp4\')" class="cursor-pointer">', price: "$25/video" },
+      { name: "Faceless Videos", media: '<img src="https://placehold.co/400x200?text=Faceless+Videos " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/faceless.mp4\')" class="cursor-pointer">', price: "$10/video" },
+      { name: "Ad Edits", media: '<img src="https://placehold.co/400x200?text=Ad+Edits " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/ad.mp4\')" class="cursor-pointer">', price: "$30/video" },
+      { name: "YouTube Automation", media: '<img src="https://placehold.co/400x200?text=YouTube+Automation " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/youtube.mp4\')" class="cursor-pointer">', price: "$20/video" },
+      { name: "AI Video Editing", media: '<img src="https://placehold.co/400x200?text=AI+Video+Editing " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/ai.mp4\')" class="cursor-pointer">', price: "$18/video" },
+      { name: "Explainer Videos", media: '<img src="https://placehold.co/400x200?text=Explainer+Videos " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/explainer.mp4\')" class="cursor-pointer">', price: "$35/video" },
+      { name: "Reels/Shorts", media: '<img src="https://placehold.co/400x200?text=Reels+%2F+Shorts " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/reels.mp4\')" class="cursor-pointer">', price: "$12/video" },
+      { name: "Event Highlight", media: '<img src="https://placehold.co/400x200?text=Event+Highlight " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/event.mp4\')" class="cursor-pointer">', price: "$40/video" },
+      { name: "Corporate Video", media: '<img src="https://placehold.co/400x200?text=Corporate+Video " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/corporate.mp4\')" class="cursor-pointer">', price: "$50/video" }
     ],
     graphicDesign: [
       { name: "Logo Design", media: '<img src="https://placehold.co/400x200?text=Logo+Design " alt="Logo Design" />', price: "$20/design" },
@@ -154,7 +154,7 @@ function getAboutMe() {
         <p class="quote mt-4 italic text-gray-300">"Let's create something amazing together."</p>
       </div>
     </main>
-
+    
     ${getTestimonials()}
   `;
 }
@@ -209,10 +209,10 @@ function getFooter() {
         <div>
           <h3 class="font-bold mb-2">Quick Links</h3>
           <ul class="space-y-1">
-            <li><button onclick="navigateTo('home')" class="hover:text-blue-400">Home</button></li>
-            <li><button onclick="navigateTo('services')" class="hover:text-blue-400">Services</button></li>
-            <li><button onclick="navigateTo('about')" class="hover:text-blue-400">About Me</button></li>
-            <li><button onclick="navigateTo('contact')" class="hover:text-blue-400">Contact</button></li>
+            <li><button onclick="navigateTo('home')">Home</button></li>
+            <li><button onclick="navigateTo('services')">Services</button></li>
+            <li><button onclick="navigateTo('about')">About Me</button></li>
+            <li><button onclick="navigateTo('contact')">Contact</button></li>
           </ul>
         </div>
         <div>
@@ -226,9 +226,9 @@ function getFooter() {
         <div>
           <h3 class="font-bold mb-2">Follow Me</h3>
           <div class="flex gap-2">
-            <button onclick="openSocial('https://instagram.com/rizwielite.production ')" class="hover:text-pink-400">Instagram</button>
-            <button onclick="openSocial('https://youtube.com/ @RizwiEliteProduction')" class="hover:text-red-400">YouTube</button>
-            <button onclick="openSocial('https://linkedin.com/in/rizwielite ')" class="hover:text-blue-400">LinkedIn</button>
+            <button onclick="openSocial('https://instagram.com/rizwielite.production ')">Instagram</button>
+            <button onclick="openSocial('https://youtube.com/ @RizwiEliteProduction')">YouTube</button>
+            <button onclick="openSocial('https://linkedin.com/in/rizwielite ')">LinkedIn</button>
           </div>
         </div>
       </div>
