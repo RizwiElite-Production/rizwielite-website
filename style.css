@@ -1,6 +1,6 @@
 /* style.css */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .hidden {
@@ -56,4 +56,16 @@ header {
 
 footer {
   background-color: #1a1a1a;
+}
+
+/* Theme Toggle */
+.dark {
+  --tw-bg-opacity: 1;
+  --tw-text-opacity: 1;
+  background-color: rgba(17, 24, 39, var(--tw-bg-opacity));
+  color: rgba(229, 231, 235, var(--tw-text-opacity));
+}
+
+.theme-toggle-btn {
+  @apply px-4 py-2 bg-gray-700 text-white rounded-full cursor-pointer;
 }

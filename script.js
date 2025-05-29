@@ -99,28 +99,99 @@ function getTierPrices(service) {
   }[service] || {};
 }
 
-// Testimonials Section
+// Portfolio Data
+function getPortfolioData(category) {
+  return {
+    videoEditing: [
+      { title: "Tech Startup Documentary", video: "https://www.w3schools.com/html/mov_bbb.mp4 ", description: "Full-length documentary editing with motion graphics and voiceover." },
+      { title: "Travel Reel", video: "https://www.w3schools.com/html/mov_bbb.mp4 ", description: "Fast-paced travel highlight reel for social media." },
+      { title: "YouTube Shorts Compilation", video: "https://www.w3schools.com/html/mov_bbb.mp4 ", description: "Edited shorts compilation with trending music." }
+    ],
+    graphicDesign: [
+      { title: "E-commerce Logo", image: "https://placehold.co/400x200?text=Ecommerce+Logo ", description: "Logo for online fashion brand." },
+      { title: "YouTube Banner", image: "https://placehold.co/400x200?text=YouTube+Banner ", description: "YouTube branding design." },
+      { title: "Instagram Feed", image: "https://placehold.co/400x200?text=Instagram+Feed ", description: "Monthly feed templates." }
+    ],
+    contentWriting: [
+      { title: "SEO Blog Post", text: "How to grow a blog organically.", preview: "https://placehold.co/400x200?text=SEO+Blog+Post " },
+      { title: "LinkedIn Bio", text: "Creative profile bio writing.", preview: "https://placehold.co/400x200?text=LinkedIn+Bio " },
+      { title: "Product Descriptions", text: "E-commerce product copywriting.", preview: "https://placehold.co/400x200?text=Product+Descriptions " }
+    ],
+    youtubeMonetization: [
+      { title: "Channel Audit", text: "Complete channel audit and optimization.", preview: "https://placehold.co/400x200?text=Channel+Audit " },
+      { title: "Monetization Tips", text: "Helped creator monetize after 4K views.", preview: "https://placehold.co/400x200?text=Monetization+Tips " },
+      { title: "Content Strategy", text: "Monthly upload strategy + titles + tags.", preview: "https://placehold.co/400x200?text=Content+Strategy " }
+    ]
+  }[category] || [];
+}
+
+// Client Stats
+function getClientStats() {
+  return `
+    <section class="client-stats mt-12 grid md:grid-cols-3 gap-6 text-center">
+      <div class="stat bg-gray-800 p-4 rounded shadow">
+        <h3 class="text-3xl font-bold">200+</h3>
+        <p>Clients Worldwide</p>
+      </div>
+      <div class="stat bg-gray-800 p-4 rounded shadow">
+        <h3 class="text-3xl font-bold">1000+</h3>
+        <p>Videos Edited</p>
+      </div>
+      <div class="stat bg-gray-800 p-4 rounded shadow">
+        <h3 class="text-3xl font-bold">⭐ 4.9</h3>
+        <p>Client Rating</p>
+      </div>
+    </section>
+  `;
+}
+
+// Service Bundles
+function getServiceBundles() {
+  return `
+    <section class="bundles mt-12">
+      <h2 class="text-2xl font-bold mb-4">Service Bundles</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bundle-card bg-gray-800 p-4 rounded shadow">
+          <h3 class="font-semibold">Video + Thumbnail</h3>
+          <p>$45/video</p>
+          <button onclick="activatePlan('Video Editing + Thumbnail')" class="mt-2 w-full bg-green-600 hover:bg-green-700 px-4 py-2 rounded">WhatsApp</button>
+        </div>
+        <div class="bundle-card bg-gray-800 p-4 rounded shadow">
+          <h3 class="font-semibold">Design + Writing</h3>
+          <p>$30/project</p>
+          <button onclick="activatePlan('Graphic Design + Content Writing')" class="mt-2 w-full bg-green-600 hover:bg-green-700 px-4 py-2 rounded">WhatsApp</button>
+        </div>
+        <div class="bundle-card bg-gray-800 p-4 rounded shadow">
+          <h3 class="font-semibold">YouTube Setup + Growth</h3>
+          <p>$80/setup</p>
+          <button onclick="activatePlan('YouTube Monetization + Growth')" class="mt-2 w-full bg-green-600 hover:bg-green-700 px-4 py-2 rounded">WhatsApp</button>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+// Testimonial Slider
 function getTestimonials() {
   return `
-    <div class="testimonials mt-12">
+    <section class="testimonials mt-12">
       <h2 class="text-2xl font-bold mb-4">What Clients Say</h2>
-      <div class="testimonial-card flex items-start gap-4 mb-6">
-        <img src="https://placehold.co/60x60 " alt="Client 1" />
-        <div>
-          <div class="rating text-yellow-400">⭐⭐⭐⭐⭐</div>
-          <p>"Rizwi is fast, creative, and always delivers beyond expectations!"</p>
-          <p class="client-name mt-2 text-gray-400">— Sarah, Creator</p>
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide testimonial-card bg-gray-800 p-4 rounded shadow text-center">
+            <img src="https://placehold.co/60x60 " alt="Client 1" class="mx-auto mb-2" />
+            <p>"Rizwi is fast, creative, and always delivers beyond expectations!"</p>
+            <p class="mt-2 text-yellow-400">⭐⭐⭐⭐⭐ — Sarah, Creator</p>
+          </div>
+          <div class="swiper-slide testimonial-card bg-gray-800 p-4 rounded shadow text-center">
+            <img src="https://placehold.co/60x60 " alt="Client 2" class="mx-auto mb-2" />
+            <p>"Professional editing and branding! Will work again soon."</p>
+            <p class="mt-2 text-yellow-400">⭐⭐⭐⭐⭐ — John, Business Owner</p>
+          </div>
         </div>
+        <div class="swiper-pagination mt-4"></div>
       </div>
-      <div class="testimonial-card flex items-start gap-4 mb-6">
-        <img src="https://placehold.co/60x60 " alt="Client 2" />
-        <div>
-          <div class="rating text-yellow-400">⭐⭐⭐⭐⭐</div>
-          <p>"Professional editing and branding! Will work again soon."</p>
-          <p class="client-name mt-2 text-gray-400">— John, Business Owner</p>
-        </div>
-      </div>
-    </div>
+    </section>
   `;
 }
 
@@ -156,6 +227,8 @@ function getAboutMe() {
       </div>
     </main>
     
+    ${getClientStats()}
+    ${getServiceBundles()}
     ${getTestimonials()}
   `;
 }
@@ -213,6 +286,7 @@ function getFooter() {
           <ul class="space-y-1">
             <li><button onclick="navigateTo('home')">Home</button></li>
             <li><button onclick="navigateTo('services')">Services</button></li>
+            <li><button onclick="navigateTo('portfolio')">Portfolio</button></li>
             <li><button onclick="navigateTo('about')">About Me</button></li>
             <li><button onclick="navigateTo('contact')">Contact</button></li>
           </ul>
@@ -250,6 +324,11 @@ function renderPage() {
       <header class="bg-gray-900 text-white p-6 text-center relative">
         <img src="https://placehold.co/200x100?text=RizwiElite+Production " alt="Logo Banner" class="logo-banner" />
         <h1 class="text-3xl font-bold">RizwiElite Production</h1>
+        <nav class="mt-4 flex justify-center gap-4">
+          <button onclick="navigateTo('portfolio')" class="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded">Portfolio</button>
+          <button onclick="navigateTo('about')" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded">About</button>
+          <button onclick="navigateTo('contact')" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded">Contact</button>
+        </nav>
       </header>
 
       <main class="p-6 grid md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
@@ -331,6 +410,61 @@ function renderPage() {
     `;
   }
 
+  else if (currentPage === "portfolio") {
+    html = `
+      <header class="bg-gray-900 text-white p-6 text-center">
+        <h1 class="text-3xl font-bold">Portfolio</h1>
+        <button onclick="navigateTo('home')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Home</button>
+      </header>
+
+      <main class="p-6 grid md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        <div class="portfolio-category bg-gray-800 p-4 rounded shadow text-center cursor-pointer" onclick="navigateTo('portfolio-detail', 'videoEditing')">
+          <h2 class="font-bold">Video Editing</h2>
+          <img src="https://placehold.co/400x200?text=Video+Editing " alt="Video Editing" class="my-4" />
+        </div>
+        <div class="portfolio-category bg-gray-800 p-4 rounded shadow text-center cursor-pointer" onclick="navigateTo('portfolio-detail', 'graphicDesign')">
+          <h2 class="font-bold">Graphic Design</h2>
+          <img src="https://placehold.co/400x200?text=Graphic+Design " alt="Graphic Design" class="my-4" />
+        </div>
+        <div class="portfolio-category bg-gray-800 p-4 rounded shadow text-center cursor-pointer" onclick="navigateTo('portfolio-detail', 'contentWriting')">
+          <h2 class="font-bold">Content Writing</h2>
+          <img src="https://placehold.co/400x200?text=Content+Writing " alt="Content Writing" class="my-4" />
+        </div>
+        <div class="portfolio-category bg-gray-800 p-4 rounded shadow text-center cursor-pointer" onclick="navigateTo('portfolio-detail', 'youtubeMonetization')">
+          <h2 class="font-bold">YouTube Monetization</h2>
+          <img src="https://placehold.co/400x200?text=YouTube+Monetization " alt="YouTube Monetization" class="my-4" />
+        </div>
+      </main>
+      
+      ${getFooter()}
+    `;
+  }
+
+  else if (currentPage === "portfolio-detail") {
+    const data = getPortfolioData(selectedService);
+
+    html = `
+      <header class="bg-gray-900 text-white p-6 text-center">
+        <h1 class="text-3xl font-bold">${selectedService} Portfolio</h1>
+        <button onclick="navigateTo('portfolio')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Portfolio</button>
+      </header>
+
+      <main class="p-6 grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        ${data.map(item => `
+          <div class="portfolio-card bg-gray-800 p-4 rounded shadow text-center">
+            <h3 class="font-semibold mb-2">${item.title}</h3>
+            <div class="mb-2">
+              ${item.video ? `<video src="${item.video}" class="w-full rounded" onclick="this.play()" controls></video>` : `<img src="${item.preview}" alt="${item.title}" class="rounded w-full" />`}
+            </div>
+            <p class="text-sm text-gray-400">${item.description}</p>
+          </div>
+        `).join('')}
+      </main>
+      
+      ${getFooter()}
+    `;
+  }
+
   else if (currentPage === "about") {
     html = getAboutMe() + getFooter();
   }
@@ -340,6 +474,15 @@ function renderPage() {
   }
 
   app.innerHTML = html;
+
+  // Init Swiper for testimonials
+  if (document.querySelector('.mySwiper')) {
+    new Swiper('.mySwiper', {
+      loop: true,
+      pagination: { el: '.swiper-pagination' },
+      autoplay: { delay: 3000 }
+    });
+  }
 }
 
 // Show Confirmation After Submitting Form
@@ -349,6 +492,11 @@ function showConfirmation() {
     confirmation.classList.remove("hidden");
     setTimeout(() => confirmation.classList.add("hidden"), 3000);
   }
+}
+
+// Theme Toggle
+function toggleTheme() {
+  document.body.classList.toggle("dark");
 }
 
 // Start App
