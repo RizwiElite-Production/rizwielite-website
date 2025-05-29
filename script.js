@@ -38,16 +38,16 @@ function playVideo(element, videoUrl) {
 function getServiceData(name) {
   return {
     videoEditing: [
-      { name: "Documentary Editing", media: '<img src="https://placehold.co/400x200?text=Documentary+Editing " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/documentary.mp4\')" class="cursor-pointer" },
-      { name: "Wedding Highlights", media: '<img src="https://placehold.co/400x200?text=Wedding+Highlights " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/wedding.mp4\')" class="cursor-pointer" },
-      { name: "Faceless Videos", media: '<img src="https://placehold.co/400x200?text=Faceless+Videos " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/faceless.mp4\')" class="cursor-pointer" },
-      { name: "Ad Edits", media: '<img src="https://placehold.co/400x200?text=Ad+Edits " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/ad.mp4\')" class="cursor-pointer" },
-      { name: "YouTube Automation", media: '<img src="https://placehold.co/400x200?text=YouTube+Automation " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/youtube.mp4\')" class="cursor-pointer" },
-      { name: "AI Video Editing", media: '<img src="https://placehold.co/400x200?text=AI+Video+Editing " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/ai.mp4\')" class="cursor-pointer" },
-      { name: "Explainer Videos", media: '<img src="https://placehold.co/400x200?text=Explainer+Videos " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/explainer.mp4\')" class="cursor-pointer" },
-      { name: "Reels/Shorts", media: '<img src="https://placehold.co/400x200?text=Reels+%2F+Shorts " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/reels.mp4\')" class="cursor-pointer" },
-      { name: "Event Highlight", media: '<img src="https://placehold.co/400x200?text=Event+Highlight " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/event.mp4\')" class="cursor-pointer" },
-      { name: "Corporate Video", media: '<img src="https://placehold.co/400x200?text=Corporate+Video " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/corporate.mp4\')" class="cursor-pointer" }
+      { name: "Documentary Editing", media: '<img src="https://placehold.co/400x200?text=Documentary+Editing " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/documentary.mp4\')" class="cursor-pointer" />,
+      { name: "Wedding Highlights", media: '<img src="https://placehold.co/400x200?text=Wedding+Highlights " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/wedding.mp4\')" class="cursor-pointer" />,
+      { name: "Faceless Videos", media: '<img src="https://placehold.co/400x200?text=Faceless+Videos " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/faceless.mp4\')" class="cursor-pointer" />,
+      { name: "Ad Edits", media: '<img src="https://placehold.co/400x200?text=Ad+Edits " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/ad.mp4\')" class="cursor-pointer" />,
+      { name: "YouTube Automation", media: '<img src="https://placehold.co/400x200?text=YouTube+Automation " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/youtube.mp4\')" class="cursor-pointer" />,
+      { name: "AI Video Editing", media: '<img src="https://placehold.co/400x200?text=AI+Video+Editing " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/ai.mp4\')" class="cursor-pointer" />,
+      { name: "Explainer Videos", media: '<img src="https://placehold.co/400x200?text=Explainer+Videos " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/explainer.mp4\')" class="cursor-pointer" />,
+      { name: "Reels/Shorts", media: '<img src="https://placehold.co/400x200?text=Reels+%2F+Shorts " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/reels.mp4\')" class="cursor-pointer" />,
+      { name: "Event Highlight", media: '<img src="https://placehold.co/400x200?text=Event+Highlight " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/event.mp4\')" class="cursor-pointer" />,
+      { name: "Corporate Video", media: '<img src="https://placehold.co/400x200?text=Corporate+Video " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/corporate.mp4\')" class="cursor-pointer" />
     ],
     graphicDesign: [
       { name: "Logo Design", media: '<img src="https://placehold.co/400x200?text=Logo+Design " alt="Logo Design" />', price: "$20/design" },
@@ -248,9 +248,10 @@ function renderPage() {
       <header class="bg-gray-900 text-white p-6 text-center">
         <h1 class="text-3xl font-bold">Rizwi Gul - Freelance Designer & Editor</h1>
         <nav class="mt-4">
-          <button onclick="navigateTo('services')" class="mx-2 bg-blue-600 hover:bg-blue-700 transition px-4 py-2 rounded">Services</button>
-          <button onclick="navigateTo('about')" class="mx-2 bg-purple-600 hover:bg-purple-700 transition px-4 py-2 rounded">About Me</button>
-          <button onclick="navigateTo('contact')" class="mx-2 bg-green-600 hover:bg-green-700 transition px-4 py-2 rounded">Contact</button>
+          <button onclick="navigateTo('services', 'videoEditing')" class="mx-2 bg-blue-600 hover:bg-blue-700 transition px-4 py-2 rounded">Video Editing</button>
+          <button onclick="navigateTo('services', 'graphicDesign')" class="mx-2 bg-purple-600 hover:bg-purple-700 transition px-4 py-2 rounded">Graphic Design</button>
+          <button onclick="navigateTo('services', 'contentWriting')" class="mx-2 bg-green-600 hover:bg-green-700 transition px-4 py-2 rounded">Content Writing</button>
+          <button onclick="navigateTo('services', 'youtubeMonetization')" class="mx-2 bg-red-600 hover:bg-red-700 transition px-4 py-2 rounded">YouTube Monetization</button>
         </nav>
       </header>
 
@@ -277,6 +278,34 @@ function renderPage() {
     `;
   }
 
+  else if (currentPage === "tiers") {
+    const tierPrices = getTierPrices(selectedService);
+
+    html = `
+      <header class="bg-gray-900 text-white p-6 text-center">
+        <h1 class="text-3xl font-bold">${selectedService}</h1>
+        <button onclick="navigateTo('home')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Home</button>
+      </header>
+
+      <main class="p-6 grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <div class="tier-card bg-gray-800 p-4 rounded shadow text-center cursor-pointer" onclick="navigateTo('services', 'videoEditing', 'standard')">
+          <h2 class="font-bold text-lg mb-2">Standard</h2>
+          <p>${tierPrices.standard}</p>
+        </div>
+        <div class="tier-card bg-gray-800 p-4 rounded shadow text-center cursor-pointer" onclick="navigateTo('services', 'videoEditing', 'medium')">
+          <h2 class="font-bold text-lg mb-2">Medium</h2>
+          <p>${tierPrices.medium}</p>
+        </div>
+        <div class="tier-card bg-gray-800 p-4 rounded shadow text-center cursor-pointer" onclick="navigateTo('services', 'videoEditing', 'premium')">
+          <h2 class="font-bold text-lg mb-2">Premium</h2>
+          <p>${tierPrices.premium}</p>
+        </div>
+      </main>
+      
+      ${getFooter()}
+    `;
+  }
+
   else if (currentPage === "services") {
     const data = getServiceData(selectedService);
 
@@ -294,34 +323,6 @@ function renderPage() {
             <p class="text-sm text-gray-400">${item.price}</p>
           </div>
         `).join('')}
-      </main>
-      
-      ${getFooter()}
-    `;
-  }
-
-  else if (currentPage === "tiers") {
-    const tierPrices = getTierPrices(selectedService);
-
-    html = `
-      <header class="bg-gray-900 text-white p-6 text-center">
-        <h1 class="text-3xl font-bold">Video Editing</h1>
-        <button onclick="navigateTo('home')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Home</button>
-      </header>
-
-      <main class="p-6 grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-        <div class="tier-card bg-gray-800 p-4 rounded shadow text-center" onclick="navigateTo('services', 'videoEditing', 'standard')">
-          <h2 class="font-bold text-lg mb-2">Standard</h2>
-          <p>${tierPrices.standard}</p>
-        </div>
-        <div class="tier-card bg-gray-800 p-4 rounded shadow text-center" onclick="navigateTo('services', 'videoEditing', 'medium')">
-          <h2 class="font-bold text-lg mb-2">Medium</h2>
-          <p>${tierPrices.medium}</p>
-        </div>
-        <div class="tier-card bg-gray-800 p-4 rounded shadow text-center" onclick="navigateTo('services', 'videoEditing', 'premium')">
-          <h2 class="font-bold text-lg mb-2">Premium</h2>
-          <p>${tierPrices.premium}</p>
-        </div>
       </main>
       
       ${getFooter()}
