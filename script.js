@@ -24,20 +24,30 @@ function openSocial(url) {
   window.open(url, '_blank');
 }
 
-// Service Subcategories (10 per service)
+// Play video manually
+function playVideo(element, videoUrl) {
+  element.outerHTML = `
+    <video controls class="w-full rounded shadow mx-auto" poster="" autoplay>
+      <source src="${videoUrl}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  `;
+}
+
+// Service Subcategories
 function getServiceData(name) {
   return {
     videoEditing: [
-      { name: "Documentary Editing", media: '<img src="https://placehold.co/400x200?text=Documentary+Editing " alt="Video Thumbnail" onclick="playVideo(this, \'https://www.w3schools.com/html/mov_bbb.mp4 \')" class="cursor-pointer" />', price: "$15/video" },
-      { name: "Wedding Highlights", media: '<img src="https://placehold.co/400x200?text=Wedding+Highlights " alt="Video Thumbnail" onclick="playVideo(this, \'https://www.w3schools.com/html/mov_bbb.mp4 \')" class="cursor-pointer" />', price: "$25/video" },
-      { name: "Faceless Videos", media: '<img src="https://placehold.co/400x200?text=Faceless+Videos " alt="Video Thumbnail" onclick="playVideo(this, \'https://www.w3schools.com/html/mov_bbb.mp4 \')" class="cursor-pointer" />', price: "$10/video" },
-      { name: "Ad Edits", media: '<img src="https://placehold.co/400x200?text=Ad+Edits " alt="Video Thumbnail" onclick="playVideo(this, \'https://www.w3schools.com/html/mov_bbb.mp4 \')" class="cursor-pointer" />', price: "$30/video" },
-      { name: "YouTube Automation", media: '<img src="https://placehold.co/400x200?text=YouTube+Automation " alt="Video Thumbnail" onclick="playVideo(this, \'https://www.w3schools.com/html/mov_bbb.mp4 \')" class="cursor-pointer" />', price: "$20/video" },
-      { name: "AI Video Editing", media: '<img src="https://placehold.co/400x200?text=AI+Video+Editing " alt="Video Thumbnail" onclick="playVideo(this, \'https://www.w3schools.com/html/mov_bbb.mp4 \')" class="cursor-pointer" />', price: "$18/video" },
-      { name: "Explainer Videos", media: '<img src="https://placehold.co/400x200?text=Explainer+Videos " alt="Video Thumbnail" onclick="playVideo(this, \'https://www.w3schools.com/html/mov_bbb.mp4 \')" class="cursor-pointer" />', price: "$35/video" },
-      { name: "Reels/Shorts", media: '<img src="https://placehold.co/400x200?text=Reels+%2F+Shorts " alt="Video Thumbnail" onclick="playVideo(this, \'https://www.w3schools.com/html/mov_bbb.mp4 \')" class="cursor-pointer" />', price: "$12/video" },
-      { name: "Event Highlight", media: '<img src="https://placehold.co/400x200?text=Event+Highlight " alt="Video Thumbnail" onclick="playVideo(this, \'https://www.w3schools.com/html/mov_bbb.mp4 \')" class="cursor-pointer" />', price: "$40/video" },
-      { name: "Corporate Video", media: '<img src="https://placehold.co/400x200?text=Corporate+Video " alt="Video Thumbnail" onclick="playVideo(this, \'https://www.w3schools.com/html/mov_bbb.mp4 \')" class="cursor-pointer" />', price: "$50/video" }
+      { name: "Documentary Editing", media: '<img src="https://placehold.co/400x200?text=Documentary+Editing " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/documentary.mp4\')" class="cursor-pointer" },
+      { name: "Wedding Highlights", media: '<img src="https://placehold.co/400x200?text=Wedding+Highlights " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/wedding.mp4\')" class="cursor-pointer" },
+      { name: "Faceless Videos", media: '<img src="https://placehold.co/400x200?text=Faceless+Videos " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/faceless.mp4\')" class="cursor-pointer" },
+      { name: "Ad Edits", media: '<img src="https://placehold.co/400x200?text=Ad+Edits " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/ad.mp4\')" class="cursor-pointer" },
+      { name: "YouTube Automation", media: '<img src="https://placehold.co/400x200?text=YouTube+Automation " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/youtube.mp4\')" class="cursor-pointer" },
+      { name: "AI Video Editing", media: '<img src="https://placehold.co/400x200?text=AI+Video+Editing " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/ai.mp4\')" class="cursor-pointer" },
+      { name: "Explainer Videos", media: '<img src="https://placehold.co/400x200?text=Explainer+Videos " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/explainer.mp4\')" class="cursor-pointer" },
+      { name: "Reels/Shorts", media: '<img src="https://placehold.co/400x200?text=Reels+%2F+Shorts " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/reels.mp4\')" class="cursor-pointer" },
+      { name: "Event Highlight", media: '<img src="https://placehold.co/400x200?text=Event+Highlight " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/event.mp4\')" class="cursor-pointer" },
+      { name: "Corporate Video", media: '<img src="https://placehold.co/400x200?text=Corporate+Video " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/corporate.mp4\')" class="cursor-pointer" }
     ],
     graphicDesign: [
       { name: "Logo Design", media: '<img src="https://placehold.co/400x200?text=Logo+Design " alt="Logo Design" />', price: "$20/design" },
@@ -85,32 +95,32 @@ function getTierPrices(service) {
       standard: "$15/video",
       medium: "$25/video",
       premium: "$35/video"
-    },
-    graphicDesign: {
-      standard: "$20/design",
-      medium: "$30/design",
-      premium: "$50/design"
-    },
-    contentWriting: {
-      standard: "$10/article",
-      medium: "$15/article",
-      premium: "$20/article"
-    },
-    youtubeMonetization: {
-      standard: "$25/channel",
-      medium: "$40/channel",
-      premium: "$60/channel"
     }
   }[service] || {};
 }
 
-// Play Video on Click
-function playVideo(element, videoUrl) {
-  element.outerHTML = `
-    <video controls class="w-full rounded shadow" poster="" autoplay>
-      <source src="${videoUrl}" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
+// Testimonials Section
+function getTestimonials() {
+  return `
+    <div class="testimonials mt-12">
+      <h2 class="text-2xl font-bold mb-4">What Clients Say</h2>
+      <div class="testimonial-card flex items-start gap-4 mb-6">
+        <img src="https://placehold.co/60x60 " alt="Client 1" />
+        <div>
+          <div class="rating text-yellow-400">⭐⭐⭐⭐⭐</div>
+          <p>"Rizwi is fast, creative, and always delivers beyond expectations!"</p>
+          <p class="client-name mt-2 text-gray-400">— Sarah, Creator</p>
+        </div>
+      </div>
+      <div class="testimonial-card flex items-start gap-4 mb-6">
+        <img src="https://placehold.co/60x60 " alt="Client 2" />
+        <div>
+          <div class="rating text-yellow-400">⭐⭐⭐⭐⭐</div>
+          <p>"Professional editing and branding! Will work again soon."</p>
+          <p class="client-name mt-2 text-gray-400">— John, Business Owner</p>
+        </div>
+      </div>
+    </div>
   `;
 }
 
@@ -122,8 +132,8 @@ function getAboutMe() {
       <button onclick="navigateTo('home')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Home</button>
     </header>
 
-    <main class="p-6 flex flex-col md:flex-row gap-6 max-w-5xl mx-auto">
-      <img src="https://placehold.co/300x300?text=Rizwi+Gul " alt="Rizwi Gul Logo" class="w-32 h-32 rounded-full object-cover" />
+    <main class="p-6 max-w-5xl mx-auto flex flex-col md:flex-row gap-6">
+      <img src="https://placehold.co/300x300?text=Rizwi+Gul " alt="Profile Picture" class="w-32 h-32 rounded-full object-cover" />
       <div class="bio">
         <p>I’m Rizwi Gul, a passionate freelancer delivering premium video editing, design, writing, and YouTube services to clients worldwide.</p>
         <p class="mt-4">Started from scratch in 2020, I’ve helped over 200 creators grow their brand through quality visuals and strategy.</p>
@@ -136,14 +146,16 @@ function getAboutMe() {
         <div class="tools mt-4">
           <strong class="block mb-2">Tools:</strong>
           <div class="flex gap-3">
-            <img class="tool-icon" src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Adobe_Premiere_Pro_CC_icon.svg " alt="Premiere Pro" />
-            <img class="tool-icon" src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Adobe_Photoshop_Icon.svg " alt="Photoshop" />
-            <img class="tool-icon" src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Canva_App_Icon.png " alt="Canva" />
+            <img class="tool-icon w-8 h-8" src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Adobe_Premiere_Pro_CC_icon.svg " alt="Premiere Pro" />
+            <img class="tool-icon w-8 h-8" src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Adobe_Photoshop_Icon.svg " alt="Photoshop" />
+            <img class="tool-icon w-8 h-8" src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Canva_App_Icon.png " alt="Canva" />
           </div>
         </div>
         <p class="quote mt-4 italic text-gray-300">"Let's create something amazing together."</p>
       </div>
     </main>
+
+    ${getTestimonials()}
   `;
 }
 
@@ -167,7 +179,7 @@ function getContactForm() {
           <option value="YouTube Monetization">YouTube Monetization</option>
         </select>
         <textarea rows="4" placeholder="Your Message" required class="w-full px-4 py-2 rounded border bg-gray-700 border-gray-600 text-white"></textarea>
-        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">Send Message</button>
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 transition px-4 py-2 rounded">Send Message</button>
       </form>
 
       <div id="confirmation" class="hidden text-center mt-4 p-3 bg-green-800 rounded-md shadow-md">
@@ -177,7 +189,7 @@ function getContactForm() {
       <p class="text-center mt-4 mb-2">Or connect via:</p>
       <div class="contact-button-links flex justify-center gap-3">
         <button class="contact-btn bg-green-600 hover:bg-green-700 transition px-4 py-2 rounded flex items-center gap-2" onclick="openSocial('https://wa.me/+923325318695 ')">
-          <svg width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M17.498 14.568c-.37-.184-.864-.367-1.364-.334-2.26-.213-4.568-.94-6.556-2.172-2.195-1.364-3.846-3.27-4.817-5.417-.97-2.148-1.204-4.436-.673-6.63.167-.672.436-1.274.775-1.84.184-.304.367-.608.518-.945l-.033-.017c-.25-.64-.383-1.314-.383-2.017-.017-2.478 1.017-4.854 2.836-6.655 1.82-1.802 4.248-2.817 6.743-2.817s4.924.998 6.744 2.817S22 14.85 22 17.35c0 .704-.133 1.378-.383 2.017zM12 22c-5.523 0-10-4.477-10-10s4.477-10 10-10 10 4.477 10 10-4.477 10-10 10z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M17.498 14.568c-.37-.184-.864-.367-1.364-.334-2.26-.213-4.568-.94-6.556-2.172-2.195-1.364-3.846-3.27-4.817-5.417-.97-2.148-1.204-4.436-.673-6.63.167-.672.436-1.274.775-1.84.184-.304.367-.608.518-.945l-.033-.017c-.25-.64-.383-1.314-.383-2.017-.017-2.478 1.017-4.854 2.836-6.655C8.656 1.017 11.08 0 13.575 0S18.5 1.017 20.317 2.836s2.836 4.248 2.836 6.743c0 .704-.133 1.378-.383 2.017zM12 22c-5.523 0-10-4.477-10-10s4.477-10 10-10 10 4.477 10 10-4.477 10-10 10z"/></svg>
           WhatsApp
         </button>
         <button class="contact-btn bg-blue-600 hover:bg-blue-700 transition px-4 py-2 rounded flex items-center gap-2" onclick="sendEmail('General Inquiry')">
@@ -227,7 +239,7 @@ function getFooter() {
   `;
 }
 
-// Render Page Based on Current State
+// Render Based on Current Page
 function renderPage() {
   let html = "";
 
@@ -247,15 +259,15 @@ function renderPage() {
           <h2 class="font-bold">Video Editing</h2>
           <p>$15/video</p>
         </div>
-        <div class="service-card bg-gray-800 p-4 rounded shadow cursor-pointer" onclick="navigateTo('tiers', 'graphicDesign')">
+        <div class="service-card bg-gray-800 p-4 rounded shadow cursor-pointer" onclick="navigateTo('services', 'graphicDesign')">
           <h2 class="font-bold">Graphic Design</h2>
           <p>$20/design</p>
         </div>
-        <div class="service-card bg-gray-800 p-4 rounded shadow cursor-pointer" onclick="navigateTo('tiers', 'contentWriting')">
+        <div class="service-card bg-gray-800 p-4 rounded shadow cursor-pointer" onclick="navigateTo('services', 'contentWriting')">
           <h2 class="font-bold">Content Writing</h2>
           <p>$10/article</p>
         </div>
-        <div class="service-card bg-gray-800 p-4 rounded shadow cursor-pointer" onclick="navigateTo('tiers', 'youtubeMonetization')">
+        <div class="service-card bg-gray-800 p-4 rounded shadow cursor-pointer" onclick="navigateTo('services', 'youtubeMonetization')">
           <h2 class="font-bold">YouTube Monetization</h2>
           <p>$25/channel</p>
         </div>
@@ -265,9 +277,8 @@ function renderPage() {
     `;
   }
 
-  else if (currentPage === "tiers") {
+  else if (currentPage === "services") {
     const data = getServiceData(selectedService);
-    const tierPrices = getTierPrices(selectedService);
 
     html = `
       <header class="bg-gray-900 text-white p-6 text-center">
@@ -275,34 +286,41 @@ function renderPage() {
         <button onclick="navigateTo('home')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Home</button>
       </header>
 
+      <main class="p-6 grid md:grid-cols-2 lg:grid-cols-5 gap-4 max-w-5xl mx-auto">
+        ${data.map(item => `
+          <div class="package-card bg-gray-800 p-4 rounded shadow text-center">
+            <h3 class="font-semibold mb-2">${item.name}</h3>
+            <div class="mb-2">${item.media}</div>
+            <p class="text-sm text-gray-400">${item.price}</p>
+          </div>
+        `).join('')}
+      </main>
+      
+      ${getFooter()}
+    `;
+  }
+
+  else if (currentPage === "tiers") {
+    const tierPrices = getTierPrices(selectedService);
+
+    html = `
+      <header class="bg-gray-900 text-white p-6 text-center">
+        <h1 class="text-3xl font-bold">Video Editing</h1>
+        <button onclick="navigateTo('home')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Home</button>
+      </header>
+
       <main class="p-6 grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-        <div class="tier-card bg-gray-800 p-4 rounded shadow text-center">
+        <div class="tier-card bg-gray-800 p-4 rounded shadow text-center" onclick="navigateTo('services', 'videoEditing', 'standard')">
           <h2 class="font-bold text-lg mb-2">Standard</h2>
           <p>${tierPrices.standard}</p>
-          <button onclick="activatePlan('${selectedService}', 'Standard')" class="mt-4 w-full bg-green-600 hover:bg-green-700 px-4 py-2 rounded">WhatsApp</button>
         </div>
-        <div class="tier-card bg-gray-800 p-4 rounded shadow text-center">
+        <div class="tier-card bg-gray-800 p-4 rounded shadow text-center" onclick="navigateTo('services', 'videoEditing', 'medium')">
           <h2 class="font-bold text-lg mb-2">Medium</h2>
           <p>${tierPrices.medium}</p>
-          <button onclick="activatePlan('${selectedService}', 'Medium')" class="mt-4 w-full bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded">WhatsApp</button>
         </div>
-        <div class="tier-card bg-gray-800 p-4 rounded shadow text-center">
+        <div class="tier-card bg-gray-800 p-4 rounded shadow text-center" onclick="navigateTo('services', 'videoEditing', 'premium')">
           <h2 class="font-bold text-lg mb-2">Premium</h2>
           <p>${tierPrices.premium}</p>
-          <button onclick="activatePlan('${selectedService}', 'Premium')" class="mt-4 w-full bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded">WhatsApp</button>
-        </div>
-
-        <div class="col-span-full mt-8">
-          <h2 class="text-xl font-bold mb-4">${selectedService} Packages</h2>
-          <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
-            ${getServiceData(selectedService).map(item => `
-              <div class="package-card bg-gray-800 p-4 rounded shadow text-center">
-                <h3 class="font-semibold mb-2">${item.name}</h3>
-                <div class="mb-2">${item.media}</div>
-                <p class="text-sm text-gray-400">${item.price}</p>
-              </div>
-            `).join('')}
-          </div>
         </div>
       </main>
       
@@ -311,7 +329,7 @@ function renderPage() {
   }
 
   else if (currentPage === "about") {
-    html = getAboutMe() + getTestimonials() + getFooter();
+    html = getAboutMe() + getFooter();
   }
 
   else if (currentPage === "contact") {
@@ -321,32 +339,7 @@ function renderPage() {
   app.innerHTML = html;
 }
 
-// Testimonials Section
-function getTestimonials() {
-  return `
-    <div class="testimonials mt-12">
-      <h2 class="text-2xl font-bold mb-4">What Clients Say</h2>
-      <div class="testimonial-card flex items-start gap-4 mb-6">
-        <img src="https://placehold.co/60x60 " alt="Client 1" />
-        <div>
-          <div class="rating text-yellow-400">⭐⭐⭐⭐⭐</div>
-          <p>"Rizwi is fast, creative, and always delivers beyond expectations!"</p>
-          <p class="client-name mt-2 text-gray-400">— Sarah, Creator</p>
-        </div>
-      </div>
-      <div class="testimonial-card flex items-start gap-4 mb-6">
-        <img src="https://placehold.co/60x60 " alt="Client 2" />
-        <div>
-          <div class="rating text-yellow-400">⭐⭐⭐⭐⭐</div>
-          <p>"Professional editing and branding! Will work again soon."</p>
-          <p class="client-name mt-2 text-gray-400">— John, Business Owner</p>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-// Show Confirmation After Form Submission
+// Show Confirmation After Submitting Form
 function showConfirmation() {
   const confirmation = document.getElementById("confirmation");
   if (confirmation) {
