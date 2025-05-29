@@ -127,8 +127,9 @@ function getTestimonials() {
 // About Me Section
 function getAboutMe() {
   return `
-    <header class="bg-gray-800 p-6 text-center">
-      <h1 class="text-3xl font-bold">About Rizwi Gul</h1>
+    <header class="bg-gray-800 p-6 text-center relative">
+      <img src="https://placehold.co/200x100?text=RizwiElite+Production " alt="Logo Banner" class="logo-banner" />
+      <h1 class="text-3xl font-bold">RizwiElite Production</h1>
       <button onclick="navigateTo('home')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Home</button>
     </header>
 
@@ -162,7 +163,8 @@ function getAboutMe() {
 // Contact Form + Buttons
 function getContactForm() {
   return `
-    <header class="bg-gray-800 p-6 text-center">
+    <header class="bg-gray-800 p-6 text-center relative">
+      <img src="https://placehold.co/200x100?text=RizwiElite+Production " alt="Logo Banner" class="logo-banner" />
       <h1 class="text-3xl font-bold">Contact Me</h1>
       <button onclick="navigateTo('home')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Home</button>
     </header>
@@ -233,7 +235,7 @@ function getFooter() {
         </div>
       </div>
       <div class="mt-6 text-sm text-gray-400 text-center">
-        © 2025 Rizwi Gul. All Rights Reserved.
+        © 2025 RizwiElite Production. All Rights Reserved.
       </div>
     </footer>
   `;
@@ -245,32 +247,31 @@ function renderPage() {
 
   if (currentPage === "home") {
     html = `
-      <header class="bg-gray-900 text-white p-6 text-center">
-        <h1 class="text-3xl font-bold">Rizwi Gul - Freelance Designer & Editor</h1>
-        <nav class="mt-4">
-          <button onclick="navigateTo('services', 'videoEditing')" class="mx-2 bg-blue-600 hover:bg-blue-700 transition px-4 py-2 rounded">Video Editing</button>
-          <button onclick="navigateTo('services', 'graphicDesign')" class="mx-2 bg-purple-600 hover:bg-purple-700 transition px-4 py-2 rounded">Graphic Design</button>
-          <button onclick="navigateTo('services', 'contentWriting')" class="mx-2 bg-green-600 hover:bg-green-700 transition px-4 py-2 rounded">Content Writing</button>
-          <button onclick="navigateTo('services', 'youtubeMonetization')" class="mx-2 bg-red-600 hover:bg-red-700 transition px-4 py-2 rounded">YouTube Monetization</button>
-        </nav>
+      <header class="bg-gray-900 text-white p-6 text-center relative">
+        <img src="https://placehold.co/200x100?text=RizwiElite+Production " alt="Logo Banner" class="logo-banner" />
+        <h1 class="text-3xl font-bold">RizwiElite Production</h1>
       </header>
 
-      <main class="p-6 grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
-        <div class="service-card bg-gray-800 p-4 rounded shadow cursor-pointer" onclick="navigateTo('tiers', 'videoEditing')">
+      <main class="p-6 grid md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        <div class="service-card bg-gray-800 p-6 rounded shadow cursor-pointer" onclick="navigateTo('tiers', 'videoEditing')">
           <h2 class="font-bold">Video Editing</h2>
           <p>$15/video</p>
+          <img src="https://placehold.co/300x150?text=Video+Editing " alt="Video Editing" class="my-4" />
         </div>
-        <div class="service-card bg-gray-800 p-4 rounded shadow cursor-pointer" onclick="navigateTo('services', 'graphicDesign')">
+        <div class="service-card bg-gray-800 p-6 rounded shadow cursor-pointer" onclick="navigateTo('services', 'graphicDesign')">
           <h2 class="font-bold">Graphic Design</h2>
           <p>$20/design</p>
+          <img src="https://placehold.co/300x150?text=Graphic+Design " alt="Graphic Design" class="my-4" />
         </div>
-        <div class="service-card bg-gray-800 p-4 rounded shadow cursor-pointer" onclick="navigateTo('services', 'contentWriting')">
+        <div class="service-card bg-gray-800 p-6 rounded shadow cursor-pointer" onclick="navigateTo('services', 'contentWriting')">
           <h2 class="font-bold">Content Writing</h2>
           <p>$10/article</p>
+          <img src="https://placehold.co/300x150?text=Content+Writing " alt="Content Writing" class="my-4" />
         </div>
-        <div class="service-card bg-gray-800 p-4 rounded shadow cursor-pointer" onclick="navigateTo('services', 'youtubeMonetization')">
+        <div class="service-card bg-gray-800 p-6 rounded shadow cursor-pointer" onclick="navigateTo('services', 'youtubeMonetization')">
           <h2 class="font-bold">YouTube Monetization</h2>
           <p>$25/channel</p>
+          <img src="https://placehold.co/300x150?text=YouTube+Monetization " alt="YouTube Monetization" class="my-4" />
         </div>
       </main>
       
@@ -283,7 +284,7 @@ function renderPage() {
 
     html = `
       <header class="bg-gray-900 text-white p-6 text-center">
-        <h1 class="text-3xl font-bold">${selectedService}</h1>
+        <h1 class="text-3xl font-bold">Video Editing</h1>
         <button onclick="navigateTo('home')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Home</button>
       </header>
 
@@ -317,10 +318,11 @@ function renderPage() {
 
       <main class="p-6 grid md:grid-cols-2 lg:grid-cols-5 gap-4 max-w-5xl mx-auto">
         ${data.map(item => `
-          <div class="package-card bg-gray-800 p-4 rounded shadow text-center">
+          <div class="subcategory-card bg-gray-800 p-4 rounded shadow text-center">
             <h3 class="font-semibold mb-2">${item.name}</h3>
             <div class="mb-2">${item.media}</div>
             <p class="text-sm text-gray-400">${item.price}</p>
+            <button onclick="activatePlan('${item.name}'); event.stopPropagation()" class="mt-2 w-full bg-green-600 hover:bg-green-700 px-4 py-2 rounded">WhatsApp</button>
           </div>
         `).join('')}
       </main>
