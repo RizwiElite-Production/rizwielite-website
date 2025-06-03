@@ -7,43 +7,51 @@ body {
   display: none;
 }
 
-.tool-icon {
-  width: 32px;
-  height: 32px;
+/* ==== CUSTOM CURSOR ==== */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
+/* ==== ANIMATED SERVICE CARD ==== */
 .service-card {
-  @apply bg-gray-800 p-6 rounded shadow-md hover:shadow-lg transition-transform duration-300 cursor-pointer flex flex-col items-center text-center;
+  @apply bg-gray-800 p-6 rounded shadow-md flex flex-col items-center text-center transition-all duration-300 transform hover:scale-105 hover:shadow-xl;
   max-width: 250px;
   margin: auto;
+  perspective: 1000px;
+  will-change: transform;
 }
 
-.subcategory-card {
-  @apply bg-gray-800 p-4 rounded shadow text-center;
-  transition: transform 0.2s ease;
+.service-card:hover {
+  transform: scale(1.05) rotateX(5deg);
 }
 
-.video-thumbnail img,
-.subcategory-media img {
-  width: 100%;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-main {
-  background-image: url('https://picsum.photos/1200/800 ');
-  background-size: cover;
-  background-position: center;
-  padding: 2rem;
-}
-
+/* ==== HERO BACKGROUND ==== */
 header {
-  background: linear-gradient(to right, #1a1a1a, #2d2d2d);
+  background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
   padding: 1.5rem;
-  position: relative;
   text-align: center;
+  position: relative;
 }
 
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ==== ANIMATED LOGO BANNER ==== */
 .logo-banner {
   position: absolute;
   top: 0;
@@ -53,24 +61,15 @@ header {
   height: 100px;
   z-index: 10;
   opacity: 0.1;
+  animation: pulse 4s infinite;
 }
 
-footer {
-  background-color: #1a1a1a;
+@keyframes pulse {
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.1); }
 }
 
-/* Modern Header Title */
-.site-title {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 700;
-  font-size: 2rem;
-  letter-spacing: 0.5px;
-  background: linear-gradient(135deg, #ffffff, #dddddd);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Main Menu Button */
+/* ==== MENU TOGGLE ==== */
 #menuToggle {
   position: absolute;
   top: 1rem;
@@ -78,6 +77,13 @@ footer {
   z-index: 20;
   cursor: pointer;
   user-select: none;
+  font-weight: bold;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+#menuToggle:hover {
+  color: #60a5fa;
 }
 
 .menu-content {
@@ -91,6 +97,7 @@ footer {
   box-shadow: 0 10px 20px rgba(0,0,0,0.4);
   display: none;
   z-index: 30;
+  animation: fadeIn 0.3s ease forwards;
 }
 
 .menu-content.show {
@@ -108,4 +115,9 @@ footer {
 
 .menu-content a:hover {
   background: rgba(255, 255, 250, 0.1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

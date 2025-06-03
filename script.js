@@ -1,9 +1,10 @@
+// script.js
+
 const app = document.getElementById("app");
 let currentPage = "home";
 let selectedService = null;
 let selectedTier = null;
 
-// Capitalize First Letter Helper
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -13,11 +14,15 @@ function navigateTo(page, service = null, tier = null) {
   selectedService = service;
   selectedTier = tier;
   renderPage();
+  if (currentPage === "home") {
+    loadParticlesJS();
+    init3DScene();
+  }
 }
 
 function activatePlan(serviceName, tierName = "") {
   const message = encodeURIComponent(`Hi Rizwi, I'm interested in "${serviceName}" ${tierName ? `(${tierName})` : ""}.`);
-  window.open(`https://wa.me/+923325318695?text= ${message}`, "_blank");
+  window.open(`https://wa.me/+923325318695?text=${message}`, "_blank");
 }
 
 function sendEmail(subject) {
@@ -29,7 +34,6 @@ function openSocial(url) {
   window.open(url, '_blank');
 }
 
-// Play video manually
 function playVideo(element, videoUrl) {
   element.outerHTML = `
     <video controls class="w-full rounded shadow mx-auto" poster="" autoplay>
@@ -39,7 +43,6 @@ function playVideo(element, videoUrl) {
   `;
 }
 
-// Service Subcategories
 function getServiceData(name) {
   return {
     videoEditing: [
@@ -93,7 +96,6 @@ function getServiceData(name) {
   }[name] || [];
 }
 
-// Tiered Pricing per Service
 function getTierPrices(service) {
   return {
     videoEditing: {
@@ -104,13 +106,12 @@ function getTierPrices(service) {
   }[service] || {};
 }
 
-// Portfolio Data
 function getPortfolioData(category) {
   return {
     videoEditing: [
-      { title: "Tech Startup Documentary", video: "https://www.w3schools.com/html/mov_bbb.mp4 ", description: "Full-length documentary editing with motion graphics and voiceover." },
-      { title: "Travel Reel", video: "https://www.w3schools.com/html/mov_bbb.mp4 ", description: "Fast-paced travel highlight reel for social media." },
-      { title: "YouTube Shorts Compilation", video: "https://www.w3schools.com/html/mov_bbb.mp4 ", description: "Edited shorts compilation with trending music." }
+      { title: "Tech Startup Documentary", video: "https://www.w3schools.com/html/mov_bbb.mp4", description: "Full-length documentary editing with motion graphics and voiceover." },
+      { title: "Travel Reel", video: "https://www.w3schools.com/html/mov_bbb.mp4", description: "Fast-paced travel highlight reel for social media." },
+      { title: "YouTube Shorts Compilation", video: "https://www.w3schools.com/html/mov_bbb.mp4", description: "Edited shorts compilation with trending music." }
     ],
     graphicDesign: [
       { title: "E-commerce Logo", preview: "https://placehold.co/400x200?text=Ecommerce+Logo ", description: "Logo for online fashion brand." },
@@ -130,7 +131,6 @@ function getPortfolioData(category) {
   }[category] || [];
 }
 
-// Client Stats / Fun Numbers
 function getClientStats() {
   return `
     <section class="client-stats mt-12 grid md:grid-cols-3 gap-6 text-center">
@@ -150,7 +150,6 @@ function getClientStats() {
   `;
 }
 
-// About Me Section
 function getAboutMe() {
   return `
     <header class="bg-gray-800 p-6 text-center relative">
@@ -158,9 +157,8 @@ function getAboutMe() {
       <h1 class="site-title mb-2">RizwiElite Production</h1>
       <button onclick="navigateTo('home')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Home</button>
     </header>
-
     <main class="p-6 max-w-5xl mx-auto flex flex-col md:flex-row gap-6">
-      <img src="https://placehold.co/300x300?text=Rizwi+Gul " alt="Profile Picture" class="w-32 h-32 rounded-full object-cover" />
+      <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_1pxqjqxv.json" background="transparent" speed="1" style="width: 200px; height: 200px;" loop autoplay></lottie-player>
       <div class="bio">
         <p>I’m Rizwi Gul, a passionate freelancer delivering premium video editing, design, writing, and YouTube services to clients worldwide.</p>
         <p class="mt-4">Started from scratch in 2020, I’ve helped over 200 creators grow their brand through quality visuals and strategy.</p>
@@ -181,19 +179,16 @@ function getAboutMe() {
         <p class="quote mt-4 italic text-gray-300">"Let's create something amazing together."</p>
       </div>
     </main>
-    
     ${getClientStats()}
   `;
 }
 
-// Contact Form + Buttons
 function getContactForm() {
   return `
     <header class="bg-gray-800 p-6 text-center relative">
       <h1 class="text-3xl font-bold">Contact Me</h1>
       <button onclick="navigateTo('home')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Home</button>
     </header>
-
     <main class="p-6 max-w-md mx-auto">
       <form onsubmit="event.preventDefault(); showConfirmation()" class="space-y-3">
         <input type="text" placeholder="Your Name" required class="w-full px-4 py-2 rounded border bg-gray-700 border-gray-600 text-white" />
@@ -208,11 +203,9 @@ function getContactForm() {
         <textarea rows="4" placeholder="Your Message" required class="w-full px-4 py-2 rounded border bg-gray-700 border-gray-600 text-white"></textarea>
         <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 transition px-4 py-2 rounded">Send Message</button>
       </form>
-
       <div id="confirmation" class="hidden text-center mt-4 p-3 bg-green-800 rounded-md shadow-md">
         Thanks! I’ll respond within 24 hours.
       </div>
-
       <p class="text-center mt-4 mb-2">Or connect via:</p>
       <div class="contact-button-links flex justify-center gap-3">
         <button class="contact-btn bg-green-600 hover:bg-green-700 transition px-4 py-2 rounded flex items-center gap-2" onclick="openSocial('https://wa.me/+923325318695 ')">
@@ -228,7 +221,6 @@ function getContactForm() {
   `;
 }
 
-// Footer Section
 function getFooter() {
   return `
     <footer class="bg-gray-800 text-white p-6 mt-12">
@@ -267,10 +259,114 @@ function getFooter() {
   `;
 }
 
+function animateCards() {
+  gsap.utils.toArray(".service-card, .tier-card").forEach((card, i) => {
+    gsap.fromTo(card,
+      { y: 50, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6, delay: i * 0.1, scrollTrigger: { trigger: card, start: "top 80%" } }
+    );
+  });
+}
+
+function showConfirmation() {
+  const confirmation = document.getElementById("confirmation");
+  if (confirmation) {
+    confirmation.classList.remove("hidden");
+    setTimeout(() => confirmation.classList.add("hidden"), 3000);
+  }
+}
+
+function toggleMenu() {
+  const menu = document.getElementById("menuContent");
+  menu.classList.toggle("show");
+}
+
+// Initialize Particles
+function loadParticlesJS() {
+  if (!document.getElementById('particles-js')) {
+    const particlesDiv = document.createElement('div');
+    particlesDiv.id = 'particles-js';
+    document.body.appendChild(particlesDiv);
+  }
+
+  particlesJS('particles-js', {
+    "particles": {
+      "number": { "value": 80 },
+      "density": { "enable": true, "value_area": 800 },
+      "color": { "value": "#ffffff" }, 
+      "shape": { "type": "circle" },
+      "opacity": { "value": 0.5, "random": false },
+      "size": { "value": 3, "random": true },
+      "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
+      "move": { "enable": true, "speed": 0.5, "direction": "none", "random": false, "straight": false }
+    },
+    "interactivity": {
+      "detect_on": "canvas",
+      "events": { "onhover": { "enable": true, "mode": "grab" }, "resize": true }
+    },
+    "retina_detect": true
+  });
+}
+
+// Initialize 3D Scene
+let scene, camera, renderer, cube;
+
+function init3DScene() {
+  const container = document.getElementById('3d-container');
+
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.z = 5;
+
+  renderer = new THREE.WebGLRenderer({ alpha: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  container.appendChild(renderer.domElement);
+
+  const geometry = new THREE.BoxGeometry();
+  const material = new THREE.MeshStandardMaterial({ color: 0x64ffda, roughness: 0.5, metalness: 0.5 });
+  cube = new THREE.Mesh(geometry, material);
+  scene.add(cube);
+
+  const light = new THREE.PointLight(0xffffff, 1);
+  light.position.set(5, 5, 5);
+  scene.add(light);
+
+  animate3D();
+}
+
+function animate3D() {
+  requestAnimationFrame(animate3D);
+  cube.rotation.x += 0.01;
+  cube.rotation.y += 0.01;
+  renderer.render(scene, camera);
+}
+
+// Initialize Custom Cursor
+function initCustomCursor() {
+  const cursor = document.createElement('div');
+  cursor.classList.add('custom-cursor');
+  document.body.appendChild(cursor);
+
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = `${e.clientX}px`;
+    cursor.style.top = `${e.clientY}px`;
+  });
+
+  document.querySelectorAll('.service-card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'scale(1.5)';
+      cursor.style.backgroundColor = 'rgba(255, 255, 255, 0.4)';
+    });
+    card.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'scale(1)';
+      cursor.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+    });
+  });
+}
+
 // Render Based on Current Page
 function renderPage() {
   let html = "";
-
   if (currentPage === "home") {
     html = `
       <header class="bg-gray-900 text-white p-6 text-center relative">
@@ -278,10 +374,8 @@ function renderPage() {
           <span class="text-white">☰ Menu</span>
           <div id="menuContent" class="menu-content"></div>
         </div>
-
         <h1 class="site-title mb-2">RizwiElite Production</h1>
       </header>
-
       <main class="p-6 grid md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
         <div class="service-card bg-gray-800 p-6 rounded shadow cursor-pointer" onclick="navigateTo('tiers', 'videoEditing')">
           <h2 class="font-bold">Video Editing</h2>
@@ -304,20 +398,16 @@ function renderPage() {
           <img src="https://placehold.co/300x150?text=YouTube+Monetization " alt="YouTube Monetization" class="my-4 mx-auto" />
         </div>
       </main>
-      
       ${getFooter()}
     `;
   }
-
   else if (currentPage === "tiers") {
     const tierPrices = getTierPrices(selectedService);
-
     html = `
       <header class="bg-gray-900 text-white p-6 text-center">
         <h1 class="text-3xl font-bold">Video Editing</h1>
         <button onclick="navigateTo('home')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Home</button>
       </header>
-
       <main class="p-6 grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
         <div class="tier-card bg-gray-800 p-4 rounded shadow text-center cursor-pointer" onclick="navigateTo('services', 'videoEditing', 'standard')">
           <h2 class="font-bold text-lg mb-2">Standard</h2>
@@ -332,20 +422,16 @@ function renderPage() {
           <p>${tierPrices.premium}</p>
         </div>
       </main>
-      
       ${getFooter()}
     `;
   }
-
   else if (currentPage === "services") {
     const data = getServiceData(selectedService);
-
     html = `
       <header class="bg-gray-900 text-white p-6 text-center">
         <h1 class="text-3xl font-bold">${selectedService}</h1>
         <button onclick="navigateTo('home')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Home</button>
       </header>
-
       <main class="p-6 grid md:grid-cols-2 lg:grid-cols-5 gap-4 max-w-5xl mx-auto">
         ${data.map(item => `
           <div class="subcategory-card bg-gray-800 p-4 rounded shadow text-center">
@@ -356,18 +442,15 @@ function renderPage() {
           </div>
         `).join('')}
       </main>
-      
       ${getFooter()}
     `;
   }
-
   else if (currentPage === "portfolio") {
     html = `
       <header class="bg-gray-900 text-white p-6 text-center">
         <h1 class="text-3xl font-bold">Portfolio</h1>
         <button onclick="navigateTo('home')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Home</button>
       </header>
-
       <main class="p-6 grid md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
         <div class="portfolio-category bg-gray-800 p-4 rounded shadow cursor-pointer text-center" onclick="navigateTo('portfolio-detail', 'videoEditing')">
           <h2 class="font-bold">Video Editing</h2>
@@ -386,20 +469,16 @@ function renderPage() {
           <img src="https://placehold.co/400x200?text=YouTube+Monetization " alt="YouTube Monetization" class="my-4 mx-auto" />
         </div>
       </main>
-      
       ${getFooter()}
     `;
   }
-
   else if (currentPage === "portfolio-detail") {
     const data = getPortfolioData(selectedService);
-
     html = `
       <header class="bg-gray-900 text-white p-6 text-center">
         <h1 class="text-3xl font-bold">${capitalizeFirstLetter(selectedService.replace("videoEditing", "Video Editing").replace("graphicDesign", "Graphic Design").replace("contentWriting", "Content Writing").replace("youtubeMonetization", "YouTube Monetization"))} Portfolio</h1>
         <button onclick="navigateTo('portfolio')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Portfolio</button>
       </header>
-
       <main class="p-6 grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
         ${data.map(item => `
           <div class="portfolio-card bg-gray-800 p-4 rounded shadow text-center">
@@ -411,15 +490,12 @@ function renderPage() {
           </div>
         `).join('')}
       </main>
-      
       ${getFooter()}
     `;
   }
-
   else if (currentPage === "about") {
     html = getAboutMe() + getFooter();
   }
-
   else if (currentPage === "contact") {
     html = getContactForm() + getFooter();
   }
@@ -430,27 +506,14 @@ function renderPage() {
   const menuContent = document.getElementById("menuContent");
   if (menuContent) {
     menuContent.innerHTML = `
-      <a onclick="navigateTo('portfolio'); event.stopPropagation()" href="#">Portfolio</a>
+      <a onclick="navigateTo('portfolio'); event.stopPropagation()" href="#">Portfolio</a> 
       <a onclick="navigateTo('about'); event.stopPropagation()" href="#">About</a>
       <a onclick="navigateTo('contact'); event.stopPropagation()" href="#">Contact</a>
     `;
   }
+
+  animateCards();
+  initCustomCursor();
 }
 
-// Show Confirmation After Submitting Form
-function showConfirmation() {
-  const confirmation = document.getElementById("confirmation");
-  if (confirmation) {
-    confirmation.classList.remove("hidden");
-    setTimeout(() => confirmation.classList.add("hidden"), 3000);
-  }
-}
-
-// Toggle Menu Logic
-function toggleMenu() {
-  const menu = document.getElementById("menuContent");
-  menu.classList.toggle("show");
-}
-
-// Start App
 renderPage();
