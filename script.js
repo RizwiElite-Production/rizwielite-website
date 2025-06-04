@@ -1,19 +1,18 @@
 // script.js
 
-const app = document.getElementById("app");
+const app = document.getElementById("app") || document.createElement("div");
 let currentPage = "home";
 let selectedService = null;
-let selectedTier = null;
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-function navigateTo(page, service = null, tier = null) {
+function navigateTo(page, service = null) {
   currentPage = page;
   selectedService = service;
-  selectedTier = tier;
   renderPage();
+  if (currentPage === "portfolio") initPortfolioFilterButtons();
 }
 
 function activatePlan(serviceName, tierName = "") {
@@ -42,20 +41,14 @@ function playVideo(element, videoUrl) {
 function getServiceData(name) {
   return {
     videoEditing: [
-      { name: "Documentary Editing", media: '<img src="https://placehold.co/400x200?text=Documentary+Editing " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/documentary.mp4\')" class="cursor-pointer">', price: "$15/video" },
-      { name: "Wedding Highlights", media: '<img src="https://placehold.co/400x200?text=Wedding+Highlights " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/wedding.mp4\')" class="cursor-pointer">', price: "$25/video" },
-      { name: "Faceless Videos", media: '<img src="https://placehold.co/400x200?text=Faceless+Videos " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/faceless.mp4\')" class="cursor-pointer">', price: "$10/video" },
-      { name: "Ad Edits", media: '<img src="https://placehold.co/400x200?text=Ad+Edits " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/ad.mp4\')" class="cursor-pointer">', price: "$30/video" },
-      { name: "YouTube Automation", media: '<img src="https://placehold.co/400x200?text=YouTube+Automation " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/youtube.mp4\')" class="cursor-pointer">', price: "$20/video" },
-      { name: "AI Video Editing", media: '<img src="https://placehold.co/400x200?text=AI+Video+Editing " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/ai.mp4\')" class="cursor-pointer">', price: "$18/video" }
+      { name: "Documentary Editing", media: '<img src="https://placehold.co/400x200?text=Documentary+Editing" alt="Thumbnail">', price: "$15/video" },
+      { name: "Wedding Highlights", media: '<img src="https://placehold.co/400x200?text=Wedding+Highlights" alt="Thumbnail">', price: "$25/video" },
+      { name: "Faceless Videos", media: '<img src="https://placehold.co/400x200?text=Faceless+Videos" alt="Thumbnail">', price: "$10/video" }
     ],
     graphicDesign: [
-      { name: "Logo Design", media: '<img src="https://placehold.co/400x200?text=Logo+Design " alt="Logo Design" />', price: "$20/design" },
-      { name: "Social Media Posts", media: '<img src="https://placehold.co/400x200?text=Social+Posts " alt="Social Post" />', price: "$10/post" },
-      { name: "Banners & Thumbnails", media: '<img src="https://placehold.co/400x200?text=Banners+%26+Thumbnails " alt="Banner Design" />', price: "$15/design" },
-      { name: "Brochure Design", media: '<img src="https://placehold.co/400x200?text=Brochure+Design " alt="Brochure Design" />', price: "$25/design" },
-      { name: "Custom Illustration", media: '<img src="https://placehold.co/400x200?text=Illustration " alt="Illustration" />', price: "$30/hour" },
-      { name: "Flyer Design", media: '<img src="https://placehold.co/400x200?text=Flyer+Design " alt="Flyer Design" />', price: "$18/design" }
+      { name: "Logo Design", media: '<img src="https://placehold.co/400x200?text=Logo+Design" alt="Logo">', price: "$20/design" },
+      { name: "Social Media Posts", media: '<img src="https://placehold.co/400x200?text=Social+Posts" alt="Post">', price: "$10/post" },
+      { name: "Banners & Thumbnails", media: '<img src="https://placehold.co/400x200?text=Banners+%26+Thumbnails" alt="Banner">', price: "$15/design" }
     ]
   }[name] || [];
 }
@@ -63,66 +56,42 @@ function getServiceData(name) {
 function getPortfolioData(category) {
   return {
     videoEditing: [
-      { title: "Tech Startup Documentary", video: "https://www.w3schools.com/html/mov_bbb.mp4 ", description: "Full-length documentary editing with motion graphics and voiceover." },
-      { title: "Travel Reel", video: "https://www.w3schools.com/html/mov_bbb.mp4 ", description: "Fast-paced travel highlight reel for social media." },
-      { title: "YouTube Shorts Compilation", video: "https://www.w3schools.com/html/mov_bbb.mp4 ", description: "Edited shorts compilation with trending music." }
+      { title: "Tech Startup Documentary", preview: "https://placehold.co/400x200?text=Startup+Doc", description: "Full documentary editing." },
+      { title: "Travel Reel", preview: "https://placehold.co/400x200?text=Travel+Reel", description: "Fast-paced travel highlight reel." }
     ],
     graphicDesign: [
-      { title: "E-commerce Logo", preview: "https://placehold.co/400x200?text=Ecommerce+Logo ", description: "Logo for online fashion brand." },
-      { title: "YouTube Banner", preview: "https://placehold.co/400x200?text=YouTube+Banner ", description: "YouTube branding design." },
-      { title: "Instagram Feed", preview: "https://placehold.co/400x200?text=Instagram+Feed ", description: "Monthly feed templates." }
-    ],
-    contentWriting: [
-      { title: "SEO Blog Post", preview: "https://placehold.co/400x200?text=SEO+Blog+Post ", description: "How to grow a blog organically." },
-      { title: "LinkedIn Bio", preview: "https://placehold.co/400x200?text=LinkedIn+Bio ", description: "Creative profile bio writing." },
-      { title: "Product Descriptions", preview: "https://placehold.co/400x200?text=Product+Descriptions ", description: "E-commerce product copywriting." }
-    ],
-    youtubeMonetization: [
-      { title: "Channel Audit", preview: "https://placehold.co/400x200?text=Channel+Audit ", description: "Complete channel audit and optimization." },
-      { title: "Monetization Tips", preview: "https://placehold.co/400x200?text=Monetization+Tips ", description: "Helped creator monetize after 4K views." },
-      { title: "Content Strategy", preview: "https://placehold.co/400x200?text=Content+Strategy ", description: "Monthly upload strategy + titles + tags." }
+      { title: "E-commerce Logo", preview: "https://placehold.co/400x200?text=Ecommerce+Logo", description: "Logo for online fashion brand." },
+      { title: "YouTube Banner", preview: "https://placehold.co/400x200?text=YouTube+Banner", description: "YouTube branding design." }
     ]
   }[category] || [];
 }
 
 function getClientStats() {
   return `
-    <section class="client-stats mt-12 grid md:grid-cols-3 gap-6 text-center">
-      <div class="stat bg-gray-800 p-4 rounded shadow">
-        <h3 class="text-3xl font-bold">200+</h3>
-        <p>Clients Worldwide</p>
-      </div>
-      <div class="stat bg-gray-800 p-4 rounded shadow">
-        <h3 class="text-3xl font-bold">1000+</h3>
-        <p>Videos Edited</p>
-      </div>
-      <div class="stat bg-gray-800 p-4 rounded shadow">
-        <h3 class="text-3xl font-bold">⭐ 4.9</h3>
-        <p>Client Rating</p>
-      </div>
+    <section class="client-stats mt-12 grid md:grid-cols-3 gap-6 text-center px-4">
+      <div class="stat bg-gray-800 p-4 rounded shadow">Clients: 200+</div>
+      <div class="stat bg-gray-800 p-4 rounded shadow">Videos: 1000+</div>
+      <div class="stat bg-gray-800 p-4 rounded shadow">⭐ 4.9 Rating</div>
     </section>
   `;
 }
 
 function getAboutMe() {
   return `
-    <header class="bg-gray-800 p-6 text-center relative">
+    <header class="bg-black p-6 text-center relative">
       <h1 class="glowing-title mb-2">RizwiElite Production</h1>
-      <button onclick="navigateTo('home')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Home</button>
+      <button onclick="navigateTo('home')" class="mt-4 bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded text-sm">Back to Home</button>
     </header>
-    <main class="p-6 max-w-5xl mx-auto flex flex-col md:flex-row gap-6">
-      <div class="bio w-full md:w-3/5">
-        <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_1pxqjqxv.json" background="transparent" speed="1" style="width: 200px; height: 200px;" loop autoplay></lottie-player>
-        <p>I’m Rizwi Gul, a passionate freelancer delivering premium video editing, design, writing, and YouTube services to clients worldwide.</p>
-        <p class="mt-4">Started from scratch in 2020, I’ve helped over 200 creators grow their brand through quality visuals and strategy.</p>
-        <ul class="grid grid-cols-2 gap-2 mt-4">
-          <li>Fast Delivery</li>
-          <li>Affordable Pricing</li>
-          <li>High Quality Output</li>
-          <li>Dedicated Support</li>
-        </ul>
-        <p class="quote mt-4 italic text-gray-300">"Let's create something amazing together."</p>
-      </div>
+    <main class="p-4 space-y-4">
+      <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_1pxqjqxv.json" background="transparent" speed="1" style="width: 200px; height: 200px;" loop autoplay></lottie-player>
+      <p>I’m Rizwi Gul, a passionate freelancer delivering premium video editing, design, writing, and YouTube services to clients worldwide.</p>
+      <p>Started from scratch in 2020, I’ve helped over 200 creators grow their brand through quality visuals and strategy.</p>
+      <ul class="grid grid-cols-2 gap-2 text-center">
+        <li>Fast Delivery</li>
+        <li>Affordable Pricing</li>
+        <li>High Quality Output</li>
+        <li>Dedicated Support</li>
+      </ul>
     </main>
     ${getClientStats()}
   `;
@@ -130,35 +99,31 @@ function getAboutMe() {
 
 function getContactForm() {
   return `
-    <header class="bg-gray-800 p-6 text-center relative">
-      <h1 class="text-3xl font-bold">Contact Me</h1>
-      <button onclick="navigateTo('home')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Home</button>
+    <header class="bg-black p-6 text-center">
+      <h1 class="glowing-title mb-2">Contact Me</h1>
+      <button onclick="navigateTo('home')" class="mt-4 bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded text-sm">Back to Home</button>
     </header>
-    <main class="p-6 max-w-md mx-auto">
+    <main class="p-4 space-y-3">
       <form onsubmit="event.preventDefault(); showConfirmation()" class="space-y-3">
-        <input type="text" placeholder="Your Name" required class="w-full px-4 py-2 rounded border bg-gray-700 border-gray-600 text-white" />
-        <input type="email" placeholder="Your Email" required class="w-full px-4 py-2 rounded border bg-gray-700 border-gray-600 text-white" />
-        <select required class="w-full px-4 py-2 rounded border bg-gray-700 border-gray-600 text-white">
+        <input type="text" placeholder="Your Name" required class="w-full px-4 py-2 rounded border bg-gray-900 border-gray-700" />
+        <input type="email" placeholder="Your Email" required class="w-full px-4 py-2 rounded border bg-gray-900 border-gray-700" />
+        <select required class="w-full px-4 py-2 rounded border bg-gray-900 border-gray-700">
           <option value="">Select Service</option>
           <option value="Video Editing">Video Editing</option>
           <option value="Graphic Design">Graphic Design</option>
           <option value="Content Writing">Content Writing</option>
           <option value="YouTube Monetization">YouTube Monetization</option>
         </select>
-        <textarea rows="4" placeholder="Your Message" required class="w-full px-4 py-2 rounded border bg-gray-700 border-gray-600 text-white"></textarea>
-        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 transition px-4 py-2 rounded">Send Message</button>
+        <textarea rows="4" placeholder="Your Message" required class="w-full px-4 py-2 rounded border bg-gray-900 border-gray-700"></textarea>
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white transition px-4 py-2 rounded">Send Message</button>
       </form>
-      <div id="confirmation" class="hidden text-center mt-4 p-3 bg-green-800 rounded-md shadow-md">
+      <div id="confirmation" class="hidden text-center p-3 bg-green-800 text-green-200 rounded-md">
         Thanks! I’ll respond within 24 hours.
       </div>
-      <p class="text-center mt-4 mb-2">Or connect via:</p>
-      <div class="contact-button-links flex justify-center gap-3">
-        <button class="contact-btn bg-green-600 hover:bg-green-700 transition px-4 py-2 rounded flex items-center gap-2" onclick="openSocial('https://wa.me/+923325318695 ')">
-          WhatsApp
-        </button>
-        <button class="contact-btn bg-blue-600 hover:bg-blue-700 transition px-4 py-2 rounded flex items-center gap-2" onclick="sendEmail('General Inquiry')">
-          Email
-        </button>
+      <p class="text-center">Or connect via:</p>
+      <div class="flex justify-center gap-3">
+        <button onclick="openSocial('https://wa.me/+923325318695')" class="contact-btn bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">WhatsApp</button>
+        <button onclick="sendEmail('General Inquiry')" class="contact-btn bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Email</button>
       </div>
     </main>
   `;
@@ -166,8 +131,8 @@ function getContactForm() {
 
 function getFooter() {
   return `
-    <footer class="bg-gray-800 text-white p-6 mt-12">
-      <div class="grid md:grid-cols-3 gap-6">
+    <footer class="mt-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
         <div>
           <h3 class="font-bold mb-2">Quick Links</h3>
           <ul class="space-y-1">
@@ -190,14 +155,12 @@ function getFooter() {
           <h3 class="font-bold mb-2">Follow Me</h3>
           <div class="flex gap-2">
             <button onclick="openSocial('https://instagram.com/rizwielite.production')">Instagram</button>
-            <button onclick="openSocial('https://youtube.com/ @RizwiEliteProduction')">YouTube</button>
+            <button onclick="openSocial('https://youtube.com/@RizwiEliteProduction')">YouTube</button>
             <button onclick="openSocial('https://linkedin.com/in/rizwielite')">LinkedIn</button>
           </div>
         </div>
       </div>
-      <div class="mt-6 text-sm text-gray-400 text-center">
-        © 2025 RizwiElite Production. All Rights Reserved.
-      </div>
+      <div class="mt-6 text-xs text-center">© 2025 RizwiElite Production. All Rights Reserved.</div>
     </footer>
   `;
 }
@@ -205,18 +168,39 @@ function getFooter() {
 function getDarkModeToggle() {
   return `
     <div class="dark-toggle" onclick="toggleDarkMode()">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 19a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm9-9a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1h2zM3 12a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm0 16a7 7 0 1 1 0-14 7 7 0 0 1 0 14z"/><circle cx="12" cy="12" r="5" fill="#fbbf24"/></svg> 
     </div>
   `;
 }
 
-function animateCards() {
-  gsap.utils.toArray(".service-card").forEach((card, i) => {
-    gsap.fromTo(card,
-      { y: 50, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.6, delay: i * 0.1, scrollTrigger: { trigger: card, start: "top 80%" } }
-    );
-  });
+function getChatbotButton() {
+  return `
+    <div class="chatbot-toggle" onclick="toggleChatbot()">💬 Get a Quote</div>
+    <div id="chatbotModal" class="chatbot-modal">
+      <h3 class="mb-2">Get a Free Quote</h3>
+      <select id="quoteService" class="mb-2">
+        <option value="Video Editing">Video Editing</option>
+        <option value="Graphic Design">Graphic Design</option>
+        <option value="Content Writing">Content Writing</option>
+        <option value="YouTube Monetization">YouTube Monetization</option>
+      </select>
+      <input type="text" id="quoteName" placeholder="Your Name" class="mb-2" />
+      <input type="email" id="quoteEmail" placeholder="Your Email" class="mb-2" />
+      <textarea id="quoteDetails" placeholder="Tell me about your project..." class="mb-2"></textarea>
+      <button onclick="generateQuote()">Submit</button>
+    </div>
+  `;
+}
+
+function generateQuote() {
+  const service = document.getElementById("quoteService").value;
+  const name = document.getElementById("quoteName").value;
+  const email = document.getElementById("quoteEmail").value;
+  const details = document.getElementById("quoteDetails").value;
+
+  const message = encodeURIComponent(`Hi Rizwi, I'm interested in "${service}".\n\nName: ${name}\nEmail: ${email}\nDetails: ${details}`);
+
+  window.open(`https://wa.me/+923325318695?text=${message}`, "_blank");
 }
 
 function showConfirmation() {
@@ -243,52 +227,86 @@ function initDarkMode() {
   }
 }
 
-function getPortfolioFilters() {
-  return `
-    <div class="portfolio-filters flex flex-wrap justify-center gap-2 mb-6">
-      <button onclick="filterPortfolio('videoEditing')" class="filter-btn bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">Video Editing</button>
-      <button onclick="filterPortfolio('graphicDesign')" class="filter-btn bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded">Graphic Design</button>
-      <button onclick="filterPortfolio('contentWriting')" class="filter-btn bg-green-600 hover:bg-green-700 px-4 py-2 rounded">Content Writing</button>
-      <button onclick="filterPortfolio('youtubeMonetization')" class="filter-btn bg-red-600 hover:bg-red-700 px-4 py-2 rounded">YouTube Monetization</button>
-      <button onclick="filterPortfolio('all')" class="filter-btn bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">All</button>
-    </div>
-  `;
+function initPortfolioFilterButtons() {
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
 }
 
 function filterPortfolio(category) {
   const portfolioGrid = document.getElementById("portfolio-grid");
   if (!portfolioGrid) return;
 
-  const data = getPortfolioData(category);
-
   let html = "";
   if (category === "all") {
-    html += Object.keys(getPortfolioData("videoEditing")).map(cat => {
-      const items = getPortfolioData(cat);
-      return items.map(item => `
-        <div class="portfolio-card bg-gray-800 p-4 rounded shadow text-center">
-          <h3 class="font-semibold mb-2">${item.title}</h3>
-          <div class="mb-2">
-            ${item.video ? `<video src="${item.video}" class="w-full rounded" controls></video>` : `<img src="${item.preview}" alt="${item.title}" class="rounded w-full" />`}
-          </div>
-          <p class="text-sm text-gray-400">${item.description}</p>
-        </div>
-      `).join('');
-    }).join('');
-  } else {
-    html += data.map(item => `
+    html += Object.values(getPortfolioData()).flat().map(item => `
       <div class="portfolio-card bg-gray-800 p-4 rounded shadow text-center">
         <h3 class="font-semibold mb-2">${item.title}</h3>
-        <div class="mb-2">
-          ${item.video ? `<video src="${item.video}" class="w-full rounded" controls></video>` : `<img src="${item.preview}" alt="${item.title}" class="rounded w-full" />`}
-        </div>
+        <img src="${item.preview}" alt="${item.title}" class="rounded w-full mb-2" />
+        <p class="text-sm text-gray-400">${item.description}</p>
+      </div>
+    `).join('');
+  } else {
+    html += getPortfolioData(category).map(item => `
+      <div class="portfolio-card bg-gray-800 p-4 rounded shadow text-center">
+        <h3 class="font-semibold mb-2">${item.title}</h3>
+        <img src="${item.preview}" alt="${item.title}" class="rounded w-full mb-2" />
         <p class="text-sm text-gray-400">${item.description}</p>
       </div>
     `).join('');
   }
 
   portfolioGrid.innerHTML = html;
-  animateCards();
+}
+
+function animateCards() {
+  gsap.utils.toArray(".service-card").forEach((card, i) => {
+    gsap.fromTo(card,
+      { y: 50, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6, delay: i * 0.1, scrollTrigger: { trigger: card, start: "top 80%" } }
+    );
+  });
+}
+
+function toggleChatbot() {
+  const modal = document.getElementById("chatbotModal");
+  modal.classList.toggle("show");
+}
+
+function init3DBackground() {
+  const canvas = document.getElementById("bgCanvas");
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+
+  // Create Stars
+  const starsGeometry = new THREE.BufferGeometry();
+  const starsCount = 500;
+  const starsVertices = new Float32Array(starsCount * 3);
+  for (let i = 0; i < starsCount * 3; i++) {
+    starsVertices[i] = (Math.random() - 0.5) * 20;
+  }
+
+  starsGeometry.setAttribute('position', new THREE.BufferAttribute(starsVertices, 3));
+  const starsMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.05 });
+  const stars = new THREE.Points(starsGeometry, starsMaterial);
+  scene.add(stars);
+
+  camera.position.z = 3;
+
+  function animateStars() {
+    requestAnimationFrame(animateStars);
+    stars.rotation.x += 0.001;
+    stars.rotation.y += 0.002;
+    renderer.render(scene, camera);
+  }
+
+  animateStars();
 }
 
 function renderPage() {
@@ -296,63 +314,59 @@ function renderPage() {
 
   if (currentPage === "home") {
     html = `
-      <header class="bg-gray-900 text-white p-6 text-center relative">
-        <div id="menuToggle" onclick="toggleMenu()">
-          ☰ Menu
-          <div id="menuContent" class="menu-content">
-            <a onclick="navigateTo('portfolio'); event.stopPropagation()" href="#">Portfolio</a> 
-            <a onclick="navigateTo('about'); event.stopPropagation()" href="#">About</a>
-            <a onclick="navigateTo('contact'); event.stopPropagation()" href="#">Contact</a>
-          </div>
-        </div>
+      <header class="bg-black text-white p-6 text-center relative">
+        <div id="menuToggle" onclick="toggleMenu()">☰ Menu</div>
+        <div id="menuContent" class="menu-content"></div>
         <h1 class="glowing-title mb-2">RizwiElite Production</h1>
       </header>
       <main class="p-6 grid md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
         <div class="service-card bg-gray-800 p-6 rounded shadow cursor-pointer" onclick="navigateTo('tiers', 'videoEditing')">
           <h2 class="font-bold">Video Editing</h2>
           <p>$15/video</p>
-          <img src="https://placehold.co/300x150?text=Video+Editing " alt="Video Editing" class="my-4 mx-auto" />
-          <p class="service-description">Professional editing for YouTube, reels, weddings, documentaries, and more.</p>
+          <img src="https://placehold.co/300x150?text=Video+Editing" alt="Video Editing" class="my-4 mx-auto" />
         </div>
         <div class="service-card bg-gray-800 p-6 rounded shadow cursor-pointer" onclick="navigateTo('services', 'graphicDesign')">
           <h2 class="font-bold">Graphic Design</h2>
           <p>$20/design</p>
-          <img src="https://placehold.co/300x150?text=Graphic+Design " alt="Graphic Design" class="my-4 mx-auto" />
-          <p class="service-description">Logo design, banners, thumbnails, branding materials tailored to your needs.</p>
+          <img src="https://placehold.co/300x150?text=Graphic+Design" alt="Graphic Design" class="my-4 mx-auto" />
         </div>
         <div class="service-card bg-gray-800 p-6 rounded shadow cursor-pointer" onclick="navigateTo('services', 'contentWriting')">
           <h2 class="font-bold">Content Writing</h2>
           <p>$10/article</p>
-          <img src="https://placehold.co/300x150?text=Content+Writing " alt="Content Writing" class="my-4 mx-auto" />
-          <p class="service-description">SEO articles, blog posts, scripts, bios, and compelling copywriting services.</p>
+          <img src="https://placehold.co/300x150?text=Content+Writing" alt="Content Writing" class="my-4 mx-auto" />
         </div>
         <div class="service-card bg-gray-800 p-6 rounded shadow cursor-pointer" onclick="navigateTo('services', 'youtubeMonetization')">
           <h2 class="font-bold">YouTube Monetization</h2>
           <p>$25/channel</p>
-          <img src="https://placehold.co/300x150?text=YouTube+Monetization " alt="YouTube Monetization" class="my-4 mx-auto" />
-          <p class="service-description">Channel setup, SEO optimization, growth strategy, and monetization assistance.</p>
+          <img src="https://placehold.co/300x150?text=YouTube+Monetization" alt="YouTube Monetization" class="my-4 mx-auto" />
         </div>
       </main>
       ${getFooter()}
       ${getDarkModeToggle()}
+      ${getChatbotButton()}
     `;
   } else if (currentPage === "portfolio") {
     html = `
-      <header class="bg-gray-900 text-white p-6 text-center">
+      <header class="bg-black text-white p-6 text-center">
         <h1 class="text-3xl font-bold">Portfolio</h1>
-        <button onclick="navigateTo('home')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Home</button>
+        <button onclick="navigateTo('home')" class="mt-4 bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded text-sm">Back to Home</button>
       </header>
       <main class="p-6 max-w-5xl mx-auto">
-        ${getPortfolioFilters()}
-        <div id="portfolio-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        <div class="portfolio-filters flex flex-wrap justify-center gap-2 mb-6">
+          <button onclick="filterPortfolio('videoEditing')" class="filter-btn bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">Video Editing</button>
+          <button onclick="filterPortfolio('graphicDesign')" class="filter-btn bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded">Graphic Design</button>
+          <button onclick="navigateTo('portfolio')" class="filter-btn bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">All</button>
+        </div>
+        <div id="portfolio-grid" class="grid md:grid-cols-3 gap-6"></div>
       </main>
       ${getFooter()}
       ${getDarkModeToggle()}
+      ${getChatbotButton()}
     `;
   } else if (currentPage === "about") {
-    html = getAboutMe() + getFooter() + getDarkModeToggle();
+    html = getAboutMe() + getFooter() + getDarkModeToggle() + getChatbotButton();
   } else if (currentPage === "contact") {
-    html = getContactForm() + getFooter() + getDarkModeToggle();
+    html = getContactForm() + getFooter() + getDarkModeToggle() + getChatbotButton();
   }
 
   app.innerHTML = html;
@@ -373,16 +387,73 @@ function renderPage() {
   // Animate cards
   animateCards();
 
-  // Load portfolio on load
+  // Load portfolio
   if (currentPage === "portfolio") {
     filterPortfolio("all");
   }
 }
 
-function getDarkModeToggle() {
-  return `<div class="dark-toggle" onclick="toggleDarkMode()">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z" fill="#fff"/><circle cx="12" cy="12" r="5" fill="#fbbf24"/></svg>
-  </div>`;
+// Initialize Dark Mode
+function initDarkMode() {
+  if (localStorage.getItem("darkMode") === "true") {
+    document.body.classList.add("dark-mode");
+  }
 }
 
+// Show Confirmation
+function showConfirmation() {
+  const confirmation = document.getElementById("confirmation");
+  if (confirmation) {
+    confirmation.classList.remove("hidden");
+    setTimeout(() => confirmation.classList.add("hidden"), 3000);
+  }
+}
+
+// Generate Quote
+function generateQuote() {
+  const service = document.getElementById("quoteService").value;
+  const name = document.getElementById("quoteName").value;
+  const email = document.getElementById("quoteEmail").value;
+  const details = document.getElementById("quoteDetails").value;
+
+  const message = encodeURIComponent(`Hi Rizwi, I'm interested in "${service}".\n\nName: ${name}\nEmail: ${email}\nDetails: ${details}`);
+  window.open(`https://wa.me/+923325318695?text=${message}`, "_blank");
+}
+
+// Initialize Portfolio Filter Buttons
+function initPortfolioFilterButtons() {
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+}
+
+// Initialize Custom Cursor
+function initCustomCursor() {
+  const cursor = document.createElement('div');
+  cursor.classList.add('custom-cursor');
+  document.body.appendChild(cursor);
+
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = `${e.clientX}px`;
+    cursor.style.top = `${e.clientY}px`;
+  });
+
+  document.querySelectorAll('.service-card, .filter-btn, .portfolio-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'scale(1.5)';
+      cursor.style.backgroundColor = 'rgba(0, 120, 255, 0.4)';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'scale(1)';
+      cursor.style.backgroundColor = 'rgba(0, 120, 255, 0.2)';
+    });
+  });
+}
+
+// Start App
 renderPage();
+init3DBackground();
+initCustomCursor();
