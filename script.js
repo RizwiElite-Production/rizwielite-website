@@ -14,10 +14,6 @@ function navigateTo(page, service = null, tier = null) {
   selectedService = service;
   selectedTier = tier;
   renderPage();
-  if (currentPage === "home") {
-    loadParticlesJS();
-    init3DScene();
-  }
 }
 
 function activatePlan(serviceName, tierName = "") {
@@ -51,11 +47,7 @@ function getServiceData(name) {
       { name: "Faceless Videos", media: '<img src="https://placehold.co/400x200?text=Faceless+Videos " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/faceless.mp4\')" class="cursor-pointer">', price: "$10/video" },
       { name: "Ad Edits", media: '<img src="https://placehold.co/400x200?text=Ad+Edits " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/ad.mp4\')" class="cursor-pointer">', price: "$30/video" },
       { name: "YouTube Automation", media: '<img src="https://placehold.co/400x200?text=YouTube+Automation " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/youtube.mp4\')" class="cursor-pointer">', price: "$20/video" },
-      { name: "AI Video Editing", media: '<img src="https://placehold.co/400x200?text=AI+Video+Editing " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/ai.mp4\')" class="cursor-pointer">', price: "$18/video" },
-      { name: "Explainer Videos", media: '<img src="https://placehold.co/400x200?text=Explainer+Videos " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/explainer.mp4\')" class="cursor-pointer">', price: "$35/video" },
-      { name: "Reels/Shorts", media: '<img src="https://placehold.co/400x200?text=Reels+%2F+Shorts " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/reels.mp4\')" class="cursor-pointer">', price: "$12/video" },
-      { name: "Event Highlight", media: '<img src="https://placehold.co/400x200?text=Event+Highlight " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/event.mp4\')" class="cursor-pointer">', price: "$40/video" },
-      { name: "Corporate Video", media: '<img src="https://placehold.co/400x200?text=Corporate+Video " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/corporate.mp4\')" class="cursor-pointer">', price: "$50/video" }
+      { name: "AI Video Editing", media: '<img src="https://placehold.co/400x200?text=AI+Video+Editing " alt="Video Thumbnail" onclick="playVideo(this, \'/videos/ai.mp4\')" class="cursor-pointer">', price: "$18/video" }
     ],
     graphicDesign: [
       { name: "Logo Design", media: '<img src="https://placehold.co/400x200?text=Logo+Design " alt="Logo Design" />', price: "$20/design" },
@@ -63,55 +55,17 @@ function getServiceData(name) {
       { name: "Banners & Thumbnails", media: '<img src="https://placehold.co/400x200?text=Banners+%26+Thumbnails " alt="Banner Design" />', price: "$15/design" },
       { name: "Brochure Design", media: '<img src="https://placehold.co/400x200?text=Brochure+Design " alt="Brochure Design" />', price: "$25/design" },
       { name: "Custom Illustration", media: '<img src="https://placehold.co/400x200?text=Illustration " alt="Illustration" />', price: "$30/hour" },
-      { name: "Flyer Design", media: '<img src="https://placehold.co/400x200?text=Flyer+Design " alt="Flyer Design" />', price: "$18/design" },
-      { name: "Brand Identity Kit", media: '<img src="https://placehold.co/400x200?text=Brand+Kit " alt="Brand Identity" />', price: "$75/kits" },
-      { name: "Infographics", media: '<img src="https://placehold.co/400x200?text=Infographics " alt="Infographics" />', price: "$20/design" },
-      { name: "Poster Design", media: '<img src="https://placehold.co/400x200?text=Poster+Design " alt="Poster Design" />', price: "$25/design" },
-      { name: "Packaging Design", media: '<img src="https://placehold.co/400x200?text=Packaging+Design " alt="Packaging Design" />', price: "$35/design" }
-    ],
-    contentWriting: [
-      { name: "SEO Articles", media: '<img src="https://placehold.co/400x200?text=SEO+Articles " alt="SEO Articles" />', price: "$10/article" },
-      { name: "Blog Writing", media: '<img src="https://placehold.co/400x200?text=Blog+Writing " alt="Blog Writing" />', price: "$12/article" },
-      { name: "Product Descriptions", media: '<img src="https://placehold.co/400x200?text=Product+Descriptions " alt="Product Description" />', price: "$8/item" },
-      { name: "Copywriting", media: '<img src="https://placehold.co/400x200?text=Copywriting " alt="Copywriting" />', price: "$20/page" },
-      { name: "Scripts for Videos", media: '<img src="https://placehold.co/400x200?text=Video+Script " alt="Video Script" />', price: "$15/script" },
-      { name: "LinkedIn Bios", media: '<img src="https://placehold.co/400x200?text=LinkedIn+Bios " alt="LinkedIn Bio" />', price: "$10/bio" },
-      { name: "Research Articles", media: '<img src="https://placehold.co/400x200?text=Research+Article " alt="Research Article" />', price: "$18/article" },
-      { name: "Web Content", media: '<img src="https://placehold.co/400x200?text=Web+Content " alt="Web Content" />', price: "$12/page" },
-      { name: "Sales Copy", media: '<img src="https://placehold.co/400x200?text=Sales+Copy " alt="Sales Copy" />', price: "$20/copy" },
-      { name: "Case Studies", media: '<img src="https://placehold.co/400x200?text=Case+Study " alt="Case Study" />', price: "$25/study" }
-    ],
-    youtubeMonetization: [
-      { name: "Channel Setup", media: '<img src="https://placehold.co/400x200?text=Channel+Setup " alt="Channel Setup" />', price: "$25/channel" },
-      { name: "Growth Strategy", media: '<img src="https://placehold.co/400x200?text=Growth+Strategy " alt="Growth Strategy" />', price: "$30/strategy" },
-      { name: "SEO Optimization", media: '<img src="https://placehold.co/400x200?text=SEO+Optimization " alt="SEO Optimization" />', price: "$20/video" },
-      { name: "Thumbnail Design", media: '<img src="https://placehold.co/400x200?text=Thumbnail+Design " alt="Thumbnail Design" />', price: "$10/design" },
-      { name: "Upload Schedule Planning", media: '<img src="https://placehold.co/400x200?text=Upload+Scheduling " alt="Upload Scheduling" />', price: "$20/month" },
-      { name: "Analytics Report", media: '<img src="https://placehold.co/400x200?text=Analytics+Report " alt="Analytics Report" />', price: "$18/report" },
-      { name: "Channel Branding", media: '<img src="https://placehold.co/400x200?text=Channel+Branding " alt="Channel Branding" />', price: "$30/service" },
-      { name: "Audience Research", media: '<img src="https://placehold.co/400x200?text=Audience+Research " alt="Audience Research" />', price: "$25/research" },
-      { name: "Content Strategy", media: '<img src="https://placehold.co/400x200?text=Content+Strategy " alt="Content Strategy" />', price: "$35/plan" },
-      { name: "Monetization Guide", media: '<img src="https://placehold.co/400x200?text=Monetization+Guide " alt="Monetization Guide" />', price: "$15/guide" }
+      { name: "Flyer Design", media: '<img src="https://placehold.co/400x200?text=Flyer+Design " alt="Flyer Design" />', price: "$18/design" }
     ]
   }[name] || [];
-}
-
-function getTierPrices(service) {
-  return {
-    videoEditing: {
-      standard: "$15/video",
-      medium: "$25/video",
-      premium: "$35/video"
-    }
-  }[service] || {};
 }
 
 function getPortfolioData(category) {
   return {
     videoEditing: [
-      { title: "Tech Startup Documentary", video: "https://www.w3schools.com/html/mov_bbb.mp4", description: "Full-length documentary editing with motion graphics and voiceover." },
-      { title: "Travel Reel", video: "https://www.w3schools.com/html/mov_bbb.mp4", description: "Fast-paced travel highlight reel for social media." },
-      { title: "YouTube Shorts Compilation", video: "https://www.w3schools.com/html/mov_bbb.mp4", description: "Edited shorts compilation with trending music." }
+      { title: "Tech Startup Documentary", video: "https://www.w3schools.com/html/mov_bbb.mp4 ", description: "Full-length documentary editing with motion graphics and voiceover." },
+      { title: "Travel Reel", video: "https://www.w3schools.com/html/mov_bbb.mp4 ", description: "Fast-paced travel highlight reel for social media." },
+      { title: "YouTube Shorts Compilation", video: "https://www.w3schools.com/html/mov_bbb.mp4 ", description: "Edited shorts compilation with trending music." }
     ],
     graphicDesign: [
       { title: "E-commerce Logo", preview: "https://placehold.co/400x200?text=Ecommerce+Logo ", description: "Logo for online fashion brand." },
@@ -153,13 +107,12 @@ function getClientStats() {
 function getAboutMe() {
   return `
     <header class="bg-gray-800 p-6 text-center relative">
-      <img src="https://placehold.co/200x100?text=RizwiElite+Production " alt="Logo Banner" class="logo-banner" />
-      <h1 class="site-title mb-2">RizwiElite Production</h1>
+      <h1 class="glowing-title mb-2">RizwiElite Production</h1>
       <button onclick="navigateTo('home')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Home</button>
     </header>
     <main class="p-6 max-w-5xl mx-auto flex flex-col md:flex-row gap-6">
-      <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_1pxqjqxv.json" background="transparent" speed="1" style="width: 200px; height: 200px;" loop autoplay></lottie-player>
-      <div class="bio">
+      <div class="bio w-full md:w-3/5">
+        <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_1pxqjqxv.json" background="transparent" speed="1" style="width: 200px; height: 200px;" loop autoplay></lottie-player>
         <p>I’m Rizwi Gul, a passionate freelancer delivering premium video editing, design, writing, and YouTube services to clients worldwide.</p>
         <p class="mt-4">Started from scratch in 2020, I’ve helped over 200 creators grow their brand through quality visuals and strategy.</p>
         <ul class="grid grid-cols-2 gap-2 mt-4">
@@ -168,14 +121,6 @@ function getAboutMe() {
           <li>High Quality Output</li>
           <li>Dedicated Support</li>
         </ul>
-        <div class="tools mt-4">
-          <strong class="block mb-2">Tools:</strong>
-          <div class="flex gap-3">
-            <img class="tool-icon w-8 h-8" src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Adobe_Premiere_Pro_CC_icon.svg " alt="Premiere Pro" />
-            <img class="tool-icon w-8 h-8" src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Adobe_Photoshop_Icon.svg " alt="Photoshop" />
-            <img class="tool-icon w-8 h-8" src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Canva_App_Icon.png " alt="Canva" />
-          </div>
-        </div>
         <p class="quote mt-4 italic text-gray-300">"Let's create something amazing together."</p>
       </div>
     </main>
@@ -209,11 +154,9 @@ function getContactForm() {
       <p class="text-center mt-4 mb-2">Or connect via:</p>
       <div class="contact-button-links flex justify-center gap-3">
         <button class="contact-btn bg-green-600 hover:bg-green-700 transition px-4 py-2 rounded flex items-center gap-2" onclick="openSocial('https://wa.me/+923325318695 ')">
-          <svg width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M17.498 14.568c-.37-.184-.864-.367-1.364-.334-2.26-.213-4.568-.94-6.556-2.172-2.195-1.364-3.846-3.27-4.817-5.417-.97-2.148-1.204-4.436-.673-6.63.167-.672.436-1.274.775-1.84.184-.304.367-.608.518-.945l-.033-.017c-.25-.64-.383-1.314-.383-2.017-.017-2.478 1.017-4.854 2.836-6.655C8.656 1.017 11.08 0 13.575 0S18.5 1.017 20.317 2.836s2.836 4.248 2.836 6.743c0 .704-.133 1.378-.383 2.017zM12 22c-5.523 0-10-4.477-10-10s4.477-10 10-10 10 4.477 10 10-4.477 10-10 10z"/></svg>
           WhatsApp
         </button>
         <button class="contact-btn bg-blue-600 hover:bg-blue-700 transition px-4 py-2 rounded flex items-center gap-2" onclick="sendEmail('General Inquiry')">
-          <svg width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 14H4V8l8 5 8-5v10z"/><circle cx="12" cy="12" r="2.6"/></svg>
           Email
         </button>
       </div>
@@ -246,9 +189,9 @@ function getFooter() {
         <div>
           <h3 class="font-bold mb-2">Follow Me</h3>
           <div class="flex gap-2">
-            <button onclick="openSocial('https://instagram.com/rizwielite.production ')">Instagram</button>
+            <button onclick="openSocial('https://instagram.com/rizwielite.production')">Instagram</button>
             <button onclick="openSocial('https://youtube.com/ @RizwiEliteProduction')">YouTube</button>
-            <button onclick="openSocial('https://linkedin.com/in/rizwielite ')">LinkedIn</button>
+            <button onclick="openSocial('https://linkedin.com/in/rizwielite')">LinkedIn</button>
           </div>
         </div>
       </div>
@@ -259,8 +202,16 @@ function getFooter() {
   `;
 }
 
+function getDarkModeToggle() {
+  return `
+    <div class="dark-toggle" onclick="toggleDarkMode()">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 19a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm9-9a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1h2zM3 12a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-2z"/></svg>
+    </div>
+  `;
+}
+
 function animateCards() {
-  gsap.utils.toArray(".service-card, .tier-card").forEach((card, i) => {
+  gsap.utils.toArray(".service-card").forEach((card, i) => {
     gsap.fromTo(card,
       { y: 50, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.6, delay: i * 0.1, scrollTrigger: { trigger: card, start: "top 80%" } }
@@ -281,226 +232,133 @@ function toggleMenu() {
   menu.classList.toggle("show");
 }
 
-// Initialize Particles
-function loadParticlesJS() {
-  if (!document.getElementById('particles-js')) {
-    const particlesDiv = document.createElement('div');
-    particlesDiv.id = 'particles-js';
-    document.body.appendChild(particlesDiv);
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
+  localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+}
+
+function initDarkMode() {
+  if (localStorage.getItem("darkMode") === "true") {
+    document.body.classList.add("dark-mode");
+  }
+}
+
+function getPortfolioFilters() {
+  return `
+    <div class="portfolio-filters flex flex-wrap justify-center gap-2 mb-6">
+      <button onclick="filterPortfolio('videoEditing')" class="filter-btn bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">Video Editing</button>
+      <button onclick="filterPortfolio('graphicDesign')" class="filter-btn bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded">Graphic Design</button>
+      <button onclick="filterPortfolio('contentWriting')" class="filter-btn bg-green-600 hover:bg-green-700 px-4 py-2 rounded">Content Writing</button>
+      <button onclick="filterPortfolio('youtubeMonetization')" class="filter-btn bg-red-600 hover:bg-red-700 px-4 py-2 rounded">YouTube Monetization</button>
+      <button onclick="filterPortfolio('all')" class="filter-btn bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">All</button>
+    </div>
+  `;
+}
+
+function filterPortfolio(category) {
+  const portfolioGrid = document.getElementById("portfolio-grid");
+  if (!portfolioGrid) return;
+
+  const data = getPortfolioData(category);
+
+  let html = "";
+  if (category === "all") {
+    html += Object.keys(getPortfolioData("videoEditing")).map(cat => {
+      const items = getPortfolioData(cat);
+      return items.map(item => `
+        <div class="portfolio-card bg-gray-800 p-4 rounded shadow text-center">
+          <h3 class="font-semibold mb-2">${item.title}</h3>
+          <div class="mb-2">
+            ${item.video ? `<video src="${item.video}" class="w-full rounded" controls></video>` : `<img src="${item.preview}" alt="${item.title}" class="rounded w-full" />`}
+          </div>
+          <p class="text-sm text-gray-400">${item.description}</p>
+        </div>
+      `).join('');
+    }).join('');
+  } else {
+    html += data.map(item => `
+      <div class="portfolio-card bg-gray-800 p-4 rounded shadow text-center">
+        <h3 class="font-semibold mb-2">${item.title}</h3>
+        <div class="mb-2">
+          ${item.video ? `<video src="${item.video}" class="w-full rounded" controls></video>` : `<img src="${item.preview}" alt="${item.title}" class="rounded w-full" />`}
+        </div>
+        <p class="text-sm text-gray-400">${item.description}</p>
+      </div>
+    `).join('');
   }
 
-  particlesJS('particles-js', {
-    "particles": {
-      "number": { "value": 80 },
-      "density": { "enable": true, "value_area": 800 },
-      "color": { "value": "#ffffff" }, 
-      "shape": { "type": "circle" },
-      "opacity": { "value": 0.5, "random": false },
-      "size": { "value": 3, "random": true },
-      "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
-      "move": { "enable": true, "speed": 0.5, "direction": "none", "random": false, "straight": false }
-    },
-    "interactivity": {
-      "detect_on": "canvas",
-      "events": { "onhover": { "enable": true, "mode": "grab" }, "resize": true }
-    },
-    "retina_detect": true
-  });
+  portfolioGrid.innerHTML = html;
+  animateCards();
 }
 
-// Initialize 3D Scene
-let scene, camera, renderer, cube;
-
-function init3DScene() {
-  const container = document.getElementById('3d-container');
-
-  scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-  camera.position.z = 5;
-
-  renderer = new THREE.WebGLRenderer({ alpha: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  container.appendChild(renderer.domElement);
-
-  const geometry = new THREE.BoxGeometry();
-  const material = new THREE.MeshStandardMaterial({ color: 0x64ffda, roughness: 0.5, metalness: 0.5 });
-  cube = new THREE.Mesh(geometry, material);
-  scene.add(cube);
-
-  const light = new THREE.PointLight(0xffffff, 1);
-  light.position.set(5, 5, 5);
-  scene.add(light);
-
-  animate3D();
-}
-
-function animate3D() {
-  requestAnimationFrame(animate3D);
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
-  renderer.render(scene, camera);
-}
-
-// Initialize Custom Cursor
-function initCustomCursor() {
-  const cursor = document.createElement('div');
-  cursor.classList.add('custom-cursor');
-  document.body.appendChild(cursor);
-
-  document.addEventListener('mousemove', e => {
-    cursor.style.left = `${e.clientX}px`;
-    cursor.style.top = `${e.clientY}px`;
-  });
-
-  document.querySelectorAll('.service-card').forEach(card => {
-    card.addEventListener('mouseenter', () => {
-      cursor.style.transform = 'scale(1.5)';
-      cursor.style.backgroundColor = 'rgba(255, 255, 255, 0.4)';
-    });
-    card.addEventListener('mouseleave', () => {
-      cursor.style.transform = 'scale(1)';
-      cursor.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-    });
-  });
-}
-
-// Render Based on Current Page
 function renderPage() {
   let html = "";
+
   if (currentPage === "home") {
     html = `
       <header class="bg-gray-900 text-white p-6 text-center relative">
         <div id="menuToggle" onclick="toggleMenu()">
-          <span class="text-white">☰ Menu</span>
-          <div id="menuContent" class="menu-content"></div>
+          ☰ Menu
+          <div id="menuContent" class="menu-content">
+            <a onclick="navigateTo('portfolio'); event.stopPropagation()" href="#">Portfolio</a> 
+            <a onclick="navigateTo('about'); event.stopPropagation()" href="#">About</a>
+            <a onclick="navigateTo('contact'); event.stopPropagation()" href="#">Contact</a>
+          </div>
         </div>
-        <h1 class="site-title mb-2">RizwiElite Production</h1>
+        <h1 class="glowing-title mb-2">RizwiElite Production</h1>
       </header>
       <main class="p-6 grid md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
         <div class="service-card bg-gray-800 p-6 rounded shadow cursor-pointer" onclick="navigateTo('tiers', 'videoEditing')">
           <h2 class="font-bold">Video Editing</h2>
           <p>$15/video</p>
           <img src="https://placehold.co/300x150?text=Video+Editing " alt="Video Editing" class="my-4 mx-auto" />
+          <p class="service-description">Professional editing for YouTube, reels, weddings, documentaries, and more.</p>
         </div>
         <div class="service-card bg-gray-800 p-6 rounded shadow cursor-pointer" onclick="navigateTo('services', 'graphicDesign')">
           <h2 class="font-bold">Graphic Design</h2>
           <p>$20/design</p>
           <img src="https://placehold.co/300x150?text=Graphic+Design " alt="Graphic Design" class="my-4 mx-auto" />
+          <p class="service-description">Logo design, banners, thumbnails, branding materials tailored to your needs.</p>
         </div>
         <div class="service-card bg-gray-800 p-6 rounded shadow cursor-pointer" onclick="navigateTo('services', 'contentWriting')">
           <h2 class="font-bold">Content Writing</h2>
           <p>$10/article</p>
           <img src="https://placehold.co/300x150?text=Content+Writing " alt="Content Writing" class="my-4 mx-auto" />
+          <p class="service-description">SEO articles, blog posts, scripts, bios, and compelling copywriting services.</p>
         </div>
         <div class="service-card bg-gray-800 p-6 rounded shadow cursor-pointer" onclick="navigateTo('services', 'youtubeMonetization')">
           <h2 class="font-bold">YouTube Monetization</h2>
           <p>$25/channel</p>
           <img src="https://placehold.co/300x150?text=YouTube+Monetization " alt="YouTube Monetization" class="my-4 mx-auto" />
+          <p class="service-description">Channel setup, SEO optimization, growth strategy, and monetization assistance.</p>
         </div>
       </main>
       ${getFooter()}
+      ${getDarkModeToggle()}
     `;
-  }
-  else if (currentPage === "tiers") {
-    const tierPrices = getTierPrices(selectedService);
-    html = `
-      <header class="bg-gray-900 text-white p-6 text-center">
-        <h1 class="text-3xl font-bold">Video Editing</h1>
-        <button onclick="navigateTo('home')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Home</button>
-      </header>
-      <main class="p-6 grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-        <div class="tier-card bg-gray-800 p-4 rounded shadow text-center cursor-pointer" onclick="navigateTo('services', 'videoEditing', 'standard')">
-          <h2 class="font-bold text-lg mb-2">Standard</h2>
-          <p>${tierPrices.standard}</p>
-        </div>
-        <div class="tier-card bg-gray-800 p-4 rounded shadow text-center cursor-pointer" onclick="navigateTo('services', 'videoEditing', 'medium')">
-          <h2 class="font-bold text-lg mb-2">Medium</h2>
-          <p>${tierPrices.medium}</p>
-        </div>
-        <div class="tier-card bg-gray-800 p-4 rounded shadow text-center cursor-pointer" onclick="navigateTo('services', 'videoEditing', 'premium')">
-          <h2 class="font-bold text-lg mb-2">Premium</h2>
-          <p>${tierPrices.premium}</p>
-        </div>
-      </main>
-      ${getFooter()}
-    `;
-  }
-  else if (currentPage === "services") {
-    const data = getServiceData(selectedService);
-    html = `
-      <header class="bg-gray-900 text-white p-6 text-center">
-        <h1 class="text-3xl font-bold">${selectedService}</h1>
-        <button onclick="navigateTo('home')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Home</button>
-      </header>
-      <main class="p-6 grid md:grid-cols-2 lg:grid-cols-5 gap-4 max-w-5xl mx-auto">
-        ${data.map(item => `
-          <div class="subcategory-card bg-gray-800 p-4 rounded shadow text-center">
-            <h3 class="font-semibold mb-2">${item.name}</h3>
-            <div class="mb-2">${item.media}</div>
-            <p class="text-sm text-gray-400">${item.price}</p>
-            <button onclick="activatePlan('${item.name}'); event.stopPropagation()" class="mt-2 w-full bg-green-600 hover:bg-green-700 px-4 py-2 rounded">WhatsApp</button>
-          </div>
-        `).join('')}
-      </main>
-      ${getFooter()}
-    `;
-  }
-  else if (currentPage === "portfolio") {
+  } else if (currentPage === "portfolio") {
     html = `
       <header class="bg-gray-900 text-white p-6 text-center">
         <h1 class="text-3xl font-bold">Portfolio</h1>
         <button onclick="navigateTo('home')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Home</button>
       </header>
-      <main class="p-6 grid md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
-        <div class="portfolio-category bg-gray-800 p-4 rounded shadow cursor-pointer text-center" onclick="navigateTo('portfolio-detail', 'videoEditing')">
-          <h2 class="font-bold">Video Editing</h2>
-          <img src="https://placehold.co/400x200?text=Video+Editing " alt="Video Editing" class="my-4 mx-auto" />
-        </div>
-        <div class="portfolio-category bg-gray-800 p-4 rounded shadow cursor-pointer text-center" onclick="navigateTo('portfolio-detail', 'graphicDesign')">
-          <h2 class="font-bold">Graphic Design</h2>
-          <img src="https://placehold.co/400x200?text=Graphic+Design " alt="Graphic Design" class="my-4 mx-auto" />
-        </div>
-        <div class="portfolio-category bg-gray-800 p-4 rounded shadow cursor-pointer text-center" onclick="navigateTo('portfolio-detail', 'contentWriting')">
-          <h2 class="font-bold">Content Writing</h2>
-          <img src="https://placehold.co/400x200?text=Content+Writing " alt="Content Writing" class="my-4 mx-auto" />
-        </div>
-        <div class="portfolio-category bg-gray-800 p-4 rounded shadow cursor-pointer text-center" onclick="navigateTo('portfolio-detail', 'youtubeMonetization')">
-          <h2 class="font-bold">YouTube Monetization</h2>
-          <img src="https://placehold.co/400x200?text=YouTube+Monetization " alt="YouTube Monetization" class="my-4 mx-auto" />
-        </div>
+      <main class="p-6 max-w-5xl mx-auto">
+        ${getPortfolioFilters()}
+        <div id="portfolio-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
       </main>
       ${getFooter()}
+      ${getDarkModeToggle()}
     `;
-  }
-  else if (currentPage === "portfolio-detail") {
-    const data = getPortfolioData(selectedService);
-    html = `
-      <header class="bg-gray-900 text-white p-6 text-center">
-        <h1 class="text-3xl font-bold">${capitalizeFirstLetter(selectedService.replace("videoEditing", "Video Editing").replace("graphicDesign", "Graphic Design").replace("contentWriting", "Content Writing").replace("youtubeMonetization", "YouTube Monetization"))} Portfolio</h1>
-        <button onclick="navigateTo('portfolio')" class="mt-4 bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded">Back to Portfolio</button>
-      </header>
-      <main class="p-6 grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-        ${data.map(item => `
-          <div class="portfolio-card bg-gray-800 p-4 rounded shadow text-center">
-            <h3 class="font-semibold mb-2">${item.title}</h3>
-            <div class="mb-2">
-              ${item.video ? `<video src="${item.video}" class="w-full rounded" controls></video>` : `<img src="${item.preview}" alt="${item.title}" class="rounded w-full" />`}
-            </div>
-            <p class="text-sm text-gray-400">${item.description}</p>
-          </div>
-        `).join('')}
-      </main>
-      ${getFooter()}
-    `;
-  }
-  else if (currentPage === "about") {
-    html = getAboutMe() + getFooter();
-  }
-  else if (currentPage === "contact") {
-    html = getContactForm() + getFooter();
+  } else if (currentPage === "about") {
+    html = getAboutMe() + getFooter() + getDarkModeToggle();
+  } else if (currentPage === "contact") {
+    html = getContactForm() + getFooter() + getDarkModeToggle();
   }
 
   app.innerHTML = html;
+
+  // Init dark mode
+  initDarkMode();
 
   // Show menu links dynamically
   const menuContent = document.getElementById("menuContent");
@@ -512,8 +370,19 @@ function renderPage() {
     `;
   }
 
+  // Animate cards
   animateCards();
-  initCustomCursor();
+
+  // Load portfolio on load
+  if (currentPage === "portfolio") {
+    filterPortfolio("all");
+  }
+}
+
+function getDarkModeToggle() {
+  return `<div class="dark-toggle" onclick="toggleDarkMode()">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z" fill="#fff"/><circle cx="12" cy="12" r="5" fill="#fbbf24"/></svg>
+  </div>`;
 }
 
 renderPage();

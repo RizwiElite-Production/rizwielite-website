@@ -1,28 +1,55 @@
 /* style.css */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Poppins', sans-serif;
+  background-color: #0f0f0f;
+  color: white;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-.hidden {
-  display: none;
+.dark-mode {
+  background-color: #ffffff;
+  color: #1a1a1a;
 }
 
-/* ==== CUSTOM CURSOR ==== */
-.custom-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.2);
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: difference;
-  transition: transform 0.2s ease, background-color 0.2s ease;
+.dark-mode .service-card,
+.dark-mode .tier-card,
+.dark-mode .subcategory-card,
+.dark-mode .portfolio-card,
+.dark-mode .stat,
+.dark-mode footer,
+.dark-mode .menu-content {
+  background-color: #f3f4f6 !important;
+  color: #1a1a1a !important;
 }
 
-/* ==== ANIMATED SERVICE CARD ==== */
+.dark-mode .menu-content a {
+  color: #1a1a1a !important;
+}
+
+.dark-mode .glowing-title {
+  -webkit-text-fill-color: black;
+  text-shadow: 0 0 10px #ccc, 0 0 20px #aaa;
+}
+
+.glowing-title {
+  font-size: 2rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #0072ff, 0 0 10px #0072ff, 0 0 20px #0072ff;
+  }
+  to {
+    text-shadow: 0 0 10px #00c6ff, 0 0 20px #00c6ff, 0 0 30px #00c6ff;
+  }
+}
+
+/* Service Cards */
 .service-card {
   @apply bg-gray-800 p-6 rounded shadow-md flex flex-col items-center text-center transition-all duration-300 transform hover:scale-105 hover:shadow-xl;
   max-width: 250px;
@@ -35,62 +62,34 @@ body {
   transform: scale(1.05) rotateX(5deg);
 }
 
-/* ==== HERO BACKGROUND ==== */
-header {
-  background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
-  padding: 1.5rem;
-  text-align: center;
-  position: relative;
+.service-description {
+  font-size: 0.875rem;
+  color: #aaa;
+  margin-top: 0.5rem;
 }
 
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* ==== ANIMATED LOGO BANNER ==== */
-.logo-banner {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 100px;
-  z-index: 10;
-  opacity: 0.1;
-  animation: pulse 4s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { transform: translateX(-50%) scale(1); }
-  50% { transform: translateX(-50%) scale(1.1); }
-}
-
-/* ==== MENU TOGGLE ==== */
+/* Menu Toggle */
 #menuToggle {
   position: absolute;
   top: 1rem;
-  left: 2rem;
+  left: 1rem;
   z-index: 20;
   cursor: pointer;
   user-select: none;
   font-weight: bold;
-  color: white;
+  color: #00f2ff;
   transition: color 0.3s ease;
 }
 
 #menuToggle:hover {
-  color: #60a5fa;
+  color: #00aaff;
 }
 
 .menu-content {
   position: absolute;
   top: 3rem;
-  left: 2rem;
-  background: rgba(0, 0, 0, 0.9);
+  left: 1rem;
+  background: rgba(0, 0, 0, 0.95);
   backdrop-filter: blur(8px);
   padding: 1rem 1.5rem;
   border-radius: 12px;
@@ -114,10 +113,61 @@ header {
 }
 
 .menu-content a:hover {
-  background: rgba(255, 255, 250, 0.1);
+  background: rgba(0, 120, 255, 0.05);
 }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Dark Mode Button */
+.dark-toggle {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 20;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.dark-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.dark-toggle svg {
+  width: 20px;
+  height: 20px;
+  fill: white;
+}
+
+.dark-mode .dark-toggle svg {
+  fill: black;
+}
+
+.dark-mode body {
+  background-color: #fff !important;
+  color: #1a1a1a !important;
+}
+
+.dark-mode .dark-toggle {
+  background: rgba(0, 0, 0, 0.1);
+}
+.dark-mode .dark-toggle svg {
+  fill: black;
+}
+
+footer {
+  background: #111;
+  color: #aaa;
+  padding: 1.5rem;
+  font-size: 0.875rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
