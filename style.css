@@ -39,12 +39,6 @@ body {
   animation: float 6s ease-in-out infinite;
 }
 
-/* Card Hover Effects */
-.service-card:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-}
-
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -83,46 +77,109 @@ body {
   opacity: 0.5;
 }
 
-/* Chatbot Toggle */
-.chatbot-toggle {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 50;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: white;
-  padding: 1rem 1.5rem;
-  border-radius: 9999px;
-  cursor: pointer;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 500;
+/* Nav */
+.nav-menu {
+  @apply fixed top-0 left-0 w-full bg-gray-900/80 backdrop-blur-md z-30 border-b border-gray-800;
 }
-.chatbot-toggle:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+.nav-container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+.nav-inner {
+  @apply flex justify-between h-16 items-center;
+}
+.logo {
+  @apply font-bold text-xl gradient-text;
+}
+.menu-links {
+  @apply hidden md:flex space-x-8;
+}
+.menu-button {
+  @apply hover:text-blue-400 transition-colors;
+}
+
+/* Footer */
+footer {
+  @apply bg-gray-900/50 py-12 px-4 border-t border-gray-800 mt-20;
+}
+.footer-title {
+  @apply font-bold mb-4;
+}
+.footer-link {
+  @apply text-gray-400 hover:text-blue-400 transition-colors;
+}
+
+/* Cards */
+.service-card {
+  @apply perspective-1000 transform-style-3d transition-transform duration-500 will-change-transform relative overflow-hidden rounded-lg border border-gray-700 hover:border-blue-500 hover:shadow-lg cursor-pointer;
+}
+.card-content {
+  @apply p-6 flex flex-col items-center text-center;
+}
+.card-icon {
+  @apply w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mb-4 transition-colors duration-300;
+}
+.card-icon:hover {
+  @apply bg-blue-500/20;
+}
+.card-icon svg {
+  @apply w-8 h-8 text-blue-400;
+}
+.card-title {
+  @apply text-xl font-bold mb-2;
+}
+.card-price {
+  @apply text-blue-400 font-medium mb-2;
+}
+.card-desc {
+  @apply text-gray-400;
+}
+
+/* Tier Card */
+.tier-card {
+  @apply bg-gray-900 rounded-lg p-6 border border-gray-700 hover:border-blue-500 transition-all duration-300 shadow-md;
+}
+.tier-title {
+  @apply text-lg font-bold mb-2;
+}
+.tier-price {
+  @apply text-blue-400 text-xl font-bold mb-4;
+}
+.tier-feature {
+  @apply text-gray-400 mb-6;
+}
+.book-btn {
+  @apply w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-2 rounded-md hover:shadow-lg transition-shadow;
+}
+
+/* Style Card */
+.style-card {
+  @apply bg-gray-900 rounded-lg overflow-hidden hover:ring-2 ring-blue-500 transition-all duration-300;
+}
+.style-img {
+  @apply w-full h-40 object-cover;
+}
+.style-footer {
+  @apply p-3 flex justify-between items-center;
+}
+.style-name {
+  @apply font-medium;
+}
+.style-book {
+  @apply text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-full;
 }
 
 /* Portfolio Grid */
 .portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
 }
-.portfolio-item:hover .portfolio-overlay {
-  opacity: 1;
+.portfolio-item {
+  @apply rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300;
 }
 .portfolio-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 1.5rem;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  @apply absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4;
 }
+.portfolio-title {
+  @apply text-white font-bold text-xl;
+}
+.portfolio-category {
+  @apply text-blue-3

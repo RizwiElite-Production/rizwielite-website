@@ -1,4 +1,3 @@
-// Main App Controller
 class RizwiEliteApp {
   constructor() {
     this.currentPage = "home";
@@ -28,7 +27,12 @@ class RizwiEliteApp {
   }
 
   setupEventListeners() {
-    window.addEventListener("resize", this.handleResize.bind(this));
+    window.addEventListener("popstate", () => {
+      const state = history.state || {};
+      this.currentPage = state.page || "home";
+      this.selectedService = state.service || null;
+      this.renderPage();
+    });
   }
 
   handleResize() {
@@ -39,17 +43,12 @@ class RizwiEliteApp {
     }
   }
 
-  // 3D Background with Three.js
+  // 3D Background
   init3DBackground() {
     const canvas = document.getElementById("bgCanvas");
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ 
-      canvas,
-      alpha: true,
-      antialias: true
-    });
-    renderer.setPixelRatio(window.devicePixelRatio);
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     const geometry = new THREE.IcosahedronGeometry(1, 1);
@@ -81,95 +80,31 @@ class RizwiEliteApp {
     this.threeJS = { scene, camera, renderer };
   }
 
-  // Particle.js Background
+  // Particle.js
   initParticles() {
     particlesJS("particles-js", {
-      "particles": {
-        "number": {
-          "value": 80,
-          "density": {
-            "enable": true,
-            "value_area": 800
-          }
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: "#3b82f6" },
+        shape: { type: "circle", stroke: { width: 0, color: "#000" } },
+        opacity: { value: 0.5, random: true, anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false } },
+        size: { value: 3, random: true, anim: { enable: true, speed: 2, size_min: 0.3, sync: false } },
+        line_linked: { enable: true, distance: 150, color: "#3b82f6", opacity: 0.4, width: 1 },
+        move: { enable: true, speed: 1, direction: "none", random: true, straight: false, out_mode: "out", bounce: false, attract: { enable: true, rotateX: 600, rotateY: 1200 } }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "grab" },
+          onclick: { enable: true, mode: "push" },
+          resize: true
         },
-        "color": {
-          "value": "#3b82f6"
-        },
-        "shape": {
-          "type": "circle",
-          "stroke": {
-            "width": 0,
-            "color": "#000000"
-          }
-        },
-        "opacity": {
-          "value": 0.5,
-          "random": true,
-          "anim": {
-            "enable": true,
-            "speed": 1,
-            "opacity_min": 0.1,
-            "sync": false
-          }
-        },
-        "size": {
-          "value": 3,
-          "random": true,
-          "anim": {
-            "enable": true,
-            "speed": 2,
-            "size_min": 0.3,
-            "sync": false
-          }
-        },
-        "line_linked": {
-          "enable": true,
-          "distance": 150,
-          "color": "#3b82f6",
-          "opacity": 0.4,
-          "width": 1
-        },
-        "move": {
-          "enable": true,
-          "speed": 1,
-          "direction": "none",
-          "random": true,
-          "straight": false,
-          "out_mode": "out",
-          "bounce": false,
-          "attract": {
-            "enable": true,
-            "rotateX": 600,
-            "rotateY": 1200
-          }
+        modes: {
+          grab: { distance: 140, line_linked: { opacity: 1 } },
+          push: { particles_nb: 4 }
         }
       },
-      "interactivity": {
-        "detect_on": "canvas",
-        "events": {
-          "onhover": {
-            "enable": true,
-            "mode": "grab"
-          },
-          "onclick": {
-            "enable": true,
-            "mode": "push"
-          },
-          "resize": true
-        },
-        "modes": {
-          "grab": {
-            "distance": 140,
-            "line_linked": {
-              "opacity": 1
-            }
-          },
-          "push": {
-            "particles_nb": 4
-          }
-        }
-      },
-      "retina_detect": true
+      retina_detect: true
     });
   }
 
@@ -184,29 +119,22 @@ class RizwiEliteApp {
     });
 
     document.querySelectorAll('a, button, .service-card, .portfolio-item').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.classList.add('active');
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.classList.remove('active');
-      });
+      el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
     });
   }
 
   navigateTo(page, service = null) {
     this.currentPage = page;
     this.selectedService = service;
+    history.pushState({ page, service }, "", `#${page}${service ? `/${service}` : ''}`);
     this.renderPage();
-    gsap.to(window, {
-      duration: 0.5,
-      scrollTo: 0,
-      ease: "power2.inOut"
-    });
+    gsap.to(window, { duration: 0.5, scrollTo: 0 });
   }
 
   renderPage() {
     let html = '';
-    switch(this.currentPage) {
+    switch (this.currentPage) {
       case "home":
         html = this.renderHomePage();
         break;
@@ -225,17 +153,18 @@ class RizwiEliteApp {
       default:
         html = this.renderHomePage();
     }
+
     document.getElementById("app").innerHTML = this.renderNavMenu() + html;
     this.initPageFeatures();
   }
 
   renderNavMenu() {
     return `
-      <nav class="fixed top-0 left-0 w-full bg-gray-900/80 backdrop-blur-md z-30 border-b border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="flex justify-between h-16 items-center">
-            <a href="#" onclick="app.navigateTo('home')" class="font-bold text-xl gradient-text">RizwiElite</a>
-            <div class="hidden md:flex space-x-8">
+      <nav class="nav-menu">
+        <div class="nav-container">
+          <div class="nav-inner">
+            <a href="#" onclick="app.navigateTo('home')" class="logo">RizwiElite</a>
+            <div class="menu-links">
               <button onclick="app.navigateTo('home')">Home</button>
               <button onclick="app.navigateTo('services')">Services</button>
               <button onclick="app.navigateTo('portfolio')">Portfolio</button>
@@ -250,8 +179,7 @@ class RizwiEliteApp {
 
   renderHomePage() {
     return `
-      <!-- Hero Section -->
-      <section class="min-h-screen flex flex-col justify-center items-center text-center px-4 relative overflow-hidden pt-20">
+      <section class="hero min-h-screen flex flex-col justify-center items-center text-center px-4 relative pt-20">
         <div class="absolute inset-0 bg-gradient-to-b from-black/70 to-black/30 z-0"></div>
         <div class="relative z-10 max-w-4xl mx-auto">
           <h1 class="text-5xl md:text-7xl font-bold mb-6 gradient-text">
@@ -261,12 +189,10 @@ class RizwiEliteApp {
             Transforming your vision into stunning visual content.
           </p>
           <div class="flex flex-wrap justify-center gap-4">
-            <button onclick="app.navigateTo('services')" 
-              class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105 shadow-lg">
+            <button onclick="app.navigateTo('services')" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full font-medium hover:shadow-lg transform hover:scale-105 transition-all duration-300">
               Explore Services
             </button>
-            <button onclick="app.navigateTo('contact')" 
-              class="bg-transparent border-2 border-blue-500 hover:bg-blue-500/10 text-white px-8 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105">
+            <button onclick="app.navigateTo('contact')" class="border-2 border-blue-500 hover:bg-blue-500/10 text-white px-8 py-3 rounded-full font-medium hover:shadow-lg transform hover:scale-105 transition-all duration-300">
               Get in Touch
             </button>
           </div>
@@ -276,7 +202,6 @@ class RizwiEliteApp {
         </div>
       </section>
 
-      <!-- Services Preview -->
       <section class="py-20 px-4 bg-gray-950">
         <div class="max-w-7xl mx-auto">
           <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 gradient-text">My Services</h2>
@@ -290,92 +215,79 @@ class RizwiEliteApp {
         </div>
       </section>
 
-      <!-- Footer -->
       ${this.renderFooter()}
-      <!-- Chatbot -->
       ${this.renderChatbot()}
-      <!-- Dark Mode Toggle -->
       ${this.renderDarkModeToggle()}
     `;
   }
 
   renderServiceCard(title, price, description, serviceType) {
     return `
-      <div class="service-card group cursor-pointer" onclick="app.navigateTo('${serviceType === 'videoEditing' ? 'services' : 'services'}', '${serviceType}')">
-        <div class="p-6 flex flex-col items-center text-center h-full">
-          <div class="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-blue-500/20 transition-colors duration-300">
-            <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold mb-2">${title}</h3>
-          <p class="text-blue-400 font-medium mb-2">${price}</p>
-          <p class="text-gray-400">${description}</p>
+      <div class="service-card" onclick="app.navigateTo('services', '${serviceType}')">
+        <div class="card-content">
+          <div class="card-icon"><svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+          </svg></div>
+          <h3 class="card-title">${title}</h3>
+          <p class="card-price">${price}</p>
+          <p class="card-desc">${description}</p>
         </div>
       </div>
     `;
   }
 
   renderServicesPage() {
+    if (!this.selectedService) {
+      return this.renderAllServicesPage();
+    }
+
+    const servicePages = {
+      videoEditing: this.renderVideoEditingPage(),
+      graphicDesign: this.renderGraphicDesignPage(),
+      contentWriting: this.renderContentWritingPage(),
+      youtubeMonetization: this.renderYouTubeStrategyPage()
+    };
+
+    return servicePages[this.selectedService] || "<h1>Service Not Found</h1>";
+  }
+
+  renderAllServicesPage() {
     return `
       <section class="py-20 px-4 bg-gray-950 min-h-screen">
         <div class="max-w-7xl mx-auto">
-          <h2 class="text-4xl font-bold text-center mb-4 gradient-text">Our Services</h2>
-          <p class="text-gray-400 text-center max-w-2xl mx-auto mb-12">Choose the perfect package for your creative needs</p>
-
-          <!-- Video Editing -->
-          <div class="mb-16">
-            <h3 class="text-2xl font-bold mb-6">🎥 Video Editing</h3>
-            
-            <!-- Tiers -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-              ${this.renderTierCard("Standard", "$15", "3 Days", "1 Revision", "Basic cuts & transitions", "whatsapp://send?phone=03325318695")}
-              ${this.renderTierCard("Medium", "$30", "2 Days", "3 Revisions", "Color grading + basic effects", "mailto:rizwigul@gmail.com")}
-              ${this.renderTierCard("Premium", "$50", "1 Day", "Unlimited Revisions", "Full cinematic edit + sound design", "whatsapp://send?phone=03325318695")}
-            </div>
-
-            <!-- Styles -->
-            <h4 class="text-xl font-semibold mb-4">Editing Styles</h4>
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-              ${this.renderStyleCard("Cinematic", "https://placehold.co/600x400?text=Cinematic+Edit", "whatsapp://send?phone=03325318695")}
-              ${this.renderStyleCard("Documentary", "https://placehold.co/600x400?text=Docu+Style", "mailto:rizwigul@gmail.com")}
-              ${this.renderStyleCard("Vlog", "https://placehold.co/600x400?text=Vlog+Edit", "whatsapp://send?phone=03325318695")}
-              ${this.renderStyleCard("Wedding", "https://placehold.co/600x400?text=Wedding+Video", "mailto:rizwigul@gmail.com")}
-              ${this.renderStyleCard("Promotional", "https://placehold.co/600x400?text=Promo+Video", "whatsapp://send?phone=03325318695")}
-            </div>
+          <h2 class="text-4xl font-bold text-center mb-4 gradient-text">All Services</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-10">
+            ${this.renderServiceCard("Video Editing", "$15/video", "Edit your footage into compelling stories", "videoEditing")}
+            ${this.renderServiceCard("Graphic Design", "$20/design", "Stunning visuals for your brand", "graphicDesign")}
+            ${this.renderServiceCard("Content Writing", "$10/article", "Engaging written content", "contentWriting")}
+            ${this.renderServiceCard("YouTube Strategy", "$25/session", "Grow your channel effectively", "youtubeMonetization")}
           </div>
+        </div>
+        ${this.renderFooter()}
+        ${this.renderChatbot()}
+        ${this.renderDarkModeToggle()}
+      </section>
+    `;
+  }
 
-          <!-- Graphic Design -->
-          <div class="mb-16">
-            <h3 class="text-2xl font-bold mb-6">🎨 Graphic Design</h3>
-            <!-- Tiers -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-              ${this.renderTierCard("Logo Design", "$20", "2 Days", "1 Revision", "Single logo concept", "mailto:rizwigul@gmail.com")}
-              ${this.renderTierCard("Social Media Kit", "$40", "3 Days", "2 Revisions", "10+ templates for platforms", "whatsapp://send?phone=03325318695")}
-              ${this.renderTierCard("Brand Identity", "$100", "5 Days", "Unlimited Revisions", "Complete branding package", "mailto:rizwigul@gmail.com")}
-            </div>
+  renderVideoEditingPage() {
+    return `
+      <section class="py-20 px-4 bg-gray-950 min-h-screen">
+        <div class="max-w-7xl mx-auto">
+          <button onclick="app.navigateTo('services')" class="mb-6 text-blue-400 underline">&larr; Back to Services</button>
+          <h2 class="text-4xl font-bold mb-6">🎥 Video Editing</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+            ${this.renderTierCard("Standard", "$15", "3 Days", "1 Revision", "Basic cuts & transitions", "whatsapp://send?phone=03325318695")}
+            ${this.renderTierCard("Medium", "$30", "2 Days", "3 Revisions", "Color grading + basic effects", "mailto:rizwigul@gmail.com")}
+            ${this.renderTierCard("Premium", "$50", "1 Day", "Unlimited Revisions", "Full cinematic edit + sound design", "whatsapp://send?phone=03325318695")}
           </div>
-
-          <!-- Content Writing -->
-          <div class="mb-16">
-            <h3 class="text-2xl font-bold mb-6">✍️ Content Writing</h3>
-            <!-- Tiers -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-              ${this.renderTierCard("Article", "$10", "1 Day", "2 Revisions", "500 words, SEO optimized", "whatsapp://send?phone=03325318695")}
-              ${this.renderTierCard("Blog Post", "$15", "2 Days", "3 Revisions", "800 words, engaging content", "mailto:rizwigul@gmail.com")}
-              ${this.renderTierCard("Scriptwriting", "$25", "3 Days", "Unlimited Revisions", "YouTube/shorts scripts", "whatsapp://send?phone=03325318695")}
-            </div>
-          </div>
-
-          <!-- YouTube Strategy -->
-          <div class="mb-16">
-            <h3 class="text-2xl font-bold mb-6">📹 YouTube Strategy</h3>
-            <!-- Tiers -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-              ${this.renderTierCard("Channel Setup", "$30", "2 Days", "1 Revision", "Branding, thumbnails, intro", "mailto:rizwigul@gmail.com")}
-              ${this.renderTierCard("Content Plan", "$50", "3 Days", "2 Revisions", "Monthly calendar, ideas, SEO", "whatsapp://send?phone=03325318695")}
-              ${this.renderTierCard("Growth Audit", "$70", "5 Days", "Unlimited Revisions", "Performance analysis + strategy", "mailto:rizwigul@gmail.com")}
-            </div>
+          <h3 class="text-2xl font-semibold mb-4">Editing Styles</h3>
+          <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+            ${this.renderStyleCard("Cinematic", "https://placehold.co/600x400?text=Cinematic+Edit", "whatsapp://send?phone=03325318695")}
+            ${this.renderStyleCard("Documentary", "https://placehold.co/600x400?text=Docu+Style", "mailto:rizwigul@gmail.com")}
+            ${this.renderStyleCard("Vlog", "https://placehold.co/600x400?text=Vlog+Edit", "whatsapp://send?phone=03325318695")}
+            ${this.renderStyleCard("Wedding", "https://placehold.co/600x400?text=Wedding+Video", "mailto:rizwigul@gmail.com")}
+            ${this.renderStyleCard("Promotional", "https://placehold.co/600x400?text=Promo+Video", "whatsapp://send?phone=03325318695")}
           </div>
         </div>
         ${this.renderFooter()}
@@ -387,32 +299,26 @@ class RizwiEliteApp {
 
   renderTierCard(title, price, delivery, revisions, features, link) {
     return `
-      <div class="bg-gray-900 rounded-lg p-6 border border-gray-700 hover:border-blue-500 transition-all duration-300 shadow-md">
-        <h4 class="text-lg font-bold mb-2">${title}</h4>
-        <p class="text-blue-400 text-xl font-bold mb-4">${price}<span class="text-sm text-gray-400"> / project</span></p>
+      <div class="tier-card">
+        <h4 class="tier-title">${title}</h4>
+        <p class="tier-price">${price} / project</p>
         <ul class="space-y-2 text-gray-400 mb-6">
           <li>✅ ${delivery}</li>
           <li>✅ ${revisions}</li>
           <li>✅ ${features}</li>
         </ul>
-        <button onclick="window.open('${link}', '_blank')"
-          class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-2 rounded-md hover:shadow-lg transition-shadow">
-          Book Now
-        </button>
+        <button onclick="window.open('${link}', '_blank')" class="book-btn">Book Now</button>
       </div>
     `;
   }
 
   renderStyleCard(name, imageUrl, link) {
     return `
-      <div class="bg-gray-900 rounded-lg overflow-hidden hover:ring-2 ring-blue-500 transition-all duration-300">
-        <img src="${imageUrl}" alt="${name}" class="w-full h-40 object-cover">
-        <div class="p-3 flex justify-between items-center">
-          <span class="font-medium">${name}</span>
-          <button onclick="window.open('${link}', '_blank')"
-            class="text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-full">
-            Book
-          </button>
+      <div class="style-card">
+        <img src="${imageUrl}" alt="${name}" class="style-img">
+        <div class="style-footer">
+          <span>${name}</span>
+          <button onclick="window.open('${link}', '_blank')" class="style-book">Book</button>
         </div>
       </div>
     `;
@@ -422,6 +328,7 @@ class RizwiEliteApp {
     return `
       <section class="py-20 px-4 bg-gray-950 min-h-screen">
         <div class="max-w-7xl mx-auto">
+          <button onclick="history.back()" class="mb-6 text-blue-400 underline">&larr; Back</button>
           <h2 class="text-4xl font-bold text-center mb-4 gradient-text">Portfolio</h2>
           <p class="text-gray-400 text-center max-w-2xl mx-auto mb-12">Showcasing our best work across multiple industries</p>
           <div class="portfolio-grid">
@@ -440,59 +347,30 @@ class RizwiEliteApp {
 
   renderPortfolioItem(title, category, imageUrl) {
     return `
-      <div class="portfolio-item rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <div class="portfolio-item">
         <img src="${imageUrl}" alt="${title}" class="w-full h-64 object-cover">
         <div class="portfolio-overlay">
           <h3 class="text-white font-bold text-xl">${title}</h3>
           <span class="text-blue-300 text-sm">${category.replace(/([A-Z])/g, ' $1').trim()}</span>
-          <button class="mt-2 bg-blue-600 hover:bg-blue-700 text-white py-1 px-3 rounded-full text-sm self-start transition-colors duration-300">
-            View Project
-          </button>
+          <button class="view-btn">View Project</button>
         </div>
       </div>
     `;
   }
 
   renderAboutPage() {
-    return `
-      <section class="py-20 px-4 bg-gray-950 min-h-screen">
-        <div class="max-w-4xl mx-auto">
-          <h2 class="text-4xl font-bold text-center mb-4 gradient-text">About Me</h2>
-          <p class="text-gray-300 mb-6">I'm Rizwi, a passionate creative professional with over 5 years of experience in video editing, graphic design, and content creation.</p>
-        </div>
-        ${this.renderFooter()}
-        ${this.renderChatbot()}
-        ${this.renderDarkModeToggle()}
-      </section>
-    `;
+    return `<section class="py-20 px-4 bg-gray-950 min-h-screen">About Us</section>`;
   }
 
   renderContactPage() {
-    return `
-      <section class="py-20 px-4 bg-gray-950 min-h-screen">
-        <div class="max-w-4xl mx-auto">
-          <h2 class="text-4xl font-bold text-center mb-4 gradient-text">Get In Touch</h2>
-          <form id="contactForm" class="space-y-6">
-            <input type="text" name="name" placeholder="Your Name" required class="w-full bg-gray-900 border border-gray-700 rounded-lg p-4 focus:outline-none focus:border-blue-500">
-            <input type="email" name="email" placeholder="Your Email" required class="w-full bg-gray-900 border border-gray-700 rounded-lg p-4 focus:outline-none focus:border-blue-500">
-            <textarea name="message" rows="5" placeholder="Your Message" required class="w-full bg-gray-900 border border-gray-700 rounded-lg p-4 focus:outline-none focus:border-blue-500"></textarea>
-            <button type="submit" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105 shadow-lg">
-              Send Message
-            </button>
-          </form>
-        </div>
-        ${this.renderFooter()}
-        ${this.renderChatbot()}
-        ${this.renderDarkModeToggle()}
-      </section>
-    `;
+    return `<section class="py-20 px-4 bg-gray-950 min-h-screen">Contact Us</section>`;
   }
 
   renderFooter() {
     return `
-      <footer class="bg-gray-900/50 py-12 px-4 border-t border-gray-800 mt-20">
+      <footer class="bg-gray-900/50 py-12 px-4 border-t border-gray-800">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div><h3 class="text-xl font-bold mb-4 gradient-text">RizwiElite</h3></div>
+          <div><h3 class="text-xl font-bold gradient-text">RizwiElite</h3></div>
           <div><h4 class="font-bold mb-4">Services</h4><ul class="space-y-2"><li><button onclick="app.navigateTo('services', 'videoEditing')">Video Editing</button></li></ul></div>
           <div><h4 class="font-bold mb-4">Quick Links</h4><ul class="space-y-2"><li><button onclick="app.navigateTo('home')">Home</button></li></ul></div>
           <div><h4 class="font-bold mb-4">Connect</h4></div>
@@ -503,13 +381,13 @@ class RizwiEliteApp {
 
   renderChatbot() {
     return `
-      <div id="chatbot" class="fixed bottom-20 right-6 w-80 h-96 bg-gray-900 border border-gray-700 rounded-lg overflow-hidden shadow-xl z-40 hidden flex-col">
+      <div id="chatbot" class="hidden">
         <div class="bg-gray-800 p-3 flex justify-between items-center">
           <span class="font-semibold">Chat with Us</span>
           <button onclick="app.toggleChatbot()" class="text-gray-400 hover:text-white">×</button>
         </div>
         <div id="chatbotMessages" class="flex-1 p-3 overflow-y-auto space-y-2 text-sm">
-          <div class="bg-blue-600 text-white p-2 rounded-lg self-start max-w-xs">Hello! How can I assist you today?</div>
+          <div class="message">Hello! How can I help?</div>
         </div>
         <form id="chatbotForm" class="border-t border-gray-700 p-2 flex">
           <input type="text" placeholder="Type your message..." class="flex-1 bg-transparent outline-none text-white" />
@@ -545,8 +423,8 @@ class RizwiEliteApp {
     document.body.classList.toggle("dark-mode", this.isDarkMode);
     localStorage.setItem("darkMode", this.isDarkMode);
     const icon = document.getElementById("darkModeIcon");
-    icon.innerHTML = this.isDarkMode ? 
-      `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />` :
+    icon.innerHTML = this.isDarkMode ?
+      `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />` :
       `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />`;
   }
 
@@ -556,7 +434,7 @@ class RizwiEliteApp {
 
   initPageFeatures() {
     if (this.currentPage === "contact") {
-      document.getElementById("contactForm").addEventListener("submit", e => {
+      document.getElementById("contactForm")?.addEventListener("submit", e => {
         e.preventDefault();
         alert("Thank you for contacting us!");
         e.target.reset();
