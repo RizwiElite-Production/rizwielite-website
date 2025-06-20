@@ -1,58 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>RizwiElite | Creative Services</title>
-
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script> 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Poppins', 'sans-serif'] },
-          colors: {
-            primary: '#2563eb',
-            secondary: '#7c3aed',
-          }
-        }
-      }
-    };
-  </script>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
-  <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
-  <!-- Three.js -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.min.js"></script>
-
-  <!-- Particles.js -->
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rizwi Edits Productions - Creative Agency</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-gray-950 text-gray-100 font-sans min-h-screen overflow-x-hidden" id="page-body">
+<body>
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="logo">
+            <h1>Rizwi Edits</h1>
+            <p>Productions</p>
+        </div>
+        <ul class="nav-links">
+            <li class="active"><a href="#"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="services.html"><i class="fas fa-concierge-bell"></i> Services</a></li>
+            <li><a href="portfolio.html"><i class="fas fa-briefcase"></i> Portfolio</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+    </nav>
 
-  <!-- Canvas & Particles -->
-  <canvas id="bgCanvas" class="fixed top-0 left-0 w-full h-full -z-10 opacity-80"></canvas>
-  <div id="particles-js" class="fixed top-0 left-0 w-full h-full -z-10"></div>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="animated-title">Where Visual Creativity Meets Function</h1>
+                <p class="animated-subtitle">Professional video editing, graphic design, content writing and YouTube monetization services</p>
+                <button class="cta-button">Explore Services</button>
+            </div>
+            <div class="hero-background"></div>
+        </section>
 
-  <!-- App Container -->
-  <div id="app" class="relative z-10"></div>
+        <!-- Services Grid -->
+        <section class="services-grid">
+            <h2 class="section-title">Our Core Services</h2>
+            <div class="grid-container">
+                <!-- Video Editing Card -->
+                <div class="service-card" data-service="video-editing">
+                    <div class="card-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Video Editing</h3>
+                    <p>Professional editing for all your video needs with multiple pricing tiers</p>
+                    <div class="card-hover-content">
+                        <ul>
+                            <li>Standard Package ($20)</li>
+                            <li>Medium Package ($40)</li>
+                            <li>Premium Package ($60)</li>
+                        </ul>
+                        <button class="service-button">View Details</button>
+                    </div>
+                </div>
 
-  <!-- Preloader -->
-  <div id="preloader" class="fixed inset-0 bg-gray-950 z-50 flex flex-col items-center justify-center transition-opacity duration-500">
-    <div class="loader animate-spin rounded-full border-t-4 border-b-4 border-blue-500 h-12 w-12 mb-4"></div>
-    <p class="text-blue-400 font-medium">Loading RizwiElite...</p>
-  </div>
+                <!-- Graphic Design Card -->
+                <div class="service-card" data-service="graphic-design">
+                    <div class="card-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>Graphic Design</h3>
+                    <p>Stunning visuals for your brand across all platforms</p>
+                    <div class="card-hover-content">
+                        <ul>
+                            <li>Thumbnails</li>
+                            <li>Logos</li>
+                            <li>Social Media</li>
+                            <li>And more...</li>
+                        </ul>
+                        <button class="service-button">View Details</button>
+                    </div>
+                </div>
 
-  <!-- Scripts -->
-  <script src="script.js"></script>
+                <!-- Content Writing Card -->
+                <div class="service-card" data-service="content-writing">
+                    <div class="card-icon">
+                        <i class="fas fa-keyboard"></i>
+                    </div>
+                    <h3>Content Writing</h3>
+                    <p>Engaging and SEO-optimized content for all your needs</p>
+                    <div class="card-hover-content">
+                        <ul>
+                            <li>Script Writing</li>
+                            <li>SEO Articles</li>
+                            <li>Documentaries</li>
+                            <li>And more...</li>
+                        </ul>
+                        <button class="service-button">View Details</button>
+                    </div>
+                </div>
+
+                <!-- YouTube Monetization Card -->
+                <div class="service-card" data-service="youtube-monetization">
+                    <div class="card-icon">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <h3>YouTube Monetization</h3>
+                    <p>Grow and monetize your YouTube channel effectively</p>
+                    <div class="card-hover-content">
+                        <ul>
+                            <li>Channel Setup</li>
+                            <li>SEO & Tags</li>
+                            <li>Monetization</li>
+                            <li>And more...</li>
+                        </ul>
+                        <button class="service-button">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h3>About Rizwi Edits</h3>
+                <p>Professional creative services to elevate your digital presence.</p>
+                <div class="contact">
+                    <span><i class="fas fa-phone"></i> +92 332 5318695</span>
+                    <span><i class="fas fa-envelope"></i> rizwigul@gmail.com</span>
+                </div>
+            </div>
+            <div class="footer-section links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section contact-form">
+                <h3>Contact Us</h3>
+                <form action="#">
+                    <input type="email" placeholder="Your Email" class="text-input">
+                    <textarea placeholder="Your Message" class="text-input"></textarea>
+                    <button type="submit" class="btn">Send</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2023 Rizwi Edits Productions | Designed with <i class="fas fa-heart"></i>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
